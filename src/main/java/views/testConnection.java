@@ -8,6 +8,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 import jakarta.persistence.Query;
+import org.mindrot.jbcrypt.BCrypt;
 
 
 public class testConnection {
@@ -24,6 +25,9 @@ public class testConnection {
             em.getTransaction().commit();  // Commit transaction if necessary
 
             System.out.println("Database connection is successful.");
+            
+            String pas = BCrypt.hashpw("Nischal@123", BCrypt.gensalt(12));
+            System.out.println(pas);
         } catch (Exception e) {
             System.err.println("Database connection failed: " + e.getMessage());
         } finally {

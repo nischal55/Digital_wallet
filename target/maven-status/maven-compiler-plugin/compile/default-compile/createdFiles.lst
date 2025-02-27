@@ -1,7 +1,12 @@
 models/User.class
 models/Lottery.class
-models/LotteryTicket.class
 models/Transaction.class
 views/testConnection.class
 models/Wallet.class
+dao/impl/UserDaoImpl.class
+controllers/UserController.class
+views/Index.class
+models/LotteryTicket.class
+dao/UserDAO.class
+views/Auth.class
 models/BaseEntity.class
