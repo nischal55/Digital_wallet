@@ -2,17 +2,17 @@ package models;
 
 
 public class Transaction {
-    private Wallet walletId;
+    private Long walletId;
     private String transactionType;
     private double amount;
     private boolean status;
     private String timeStamp;
 
-    public Wallet getWalletId() {
+    public Long getWalletId() {
         return walletId;
     }
 
-    public void setWalletId(Wallet walletId) {
+    public void setWalletId(Long walletId) {
         this.walletId = walletId;
     }
 

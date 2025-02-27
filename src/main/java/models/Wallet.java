@@ -2,14 +2,14 @@ package models;
 
 
 public class Wallet extends BaseEntity{
-    private User userId;
+    private Long userId;
     private double balance;
 
-    public User getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(User userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 

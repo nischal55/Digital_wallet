@@ -2,16 +2,16 @@ package models;
 
 
 public class LotteryTicket extends BaseEntity{
-    private Lottery lottery_id;
+    private Long lottery_id;
     private User user_id;
     private int ticket_number;
     private String createdAt;
 
-    public Lottery getLottery_id() {
+    public Long getLottery_id() {
         return lottery_id;
     }
 
-    public void setLottery_id(Lottery lottery_id) {
+    public void setLottery_id(Long lottery_id) {
         this.lottery_id = lottery_id;
     }
 
