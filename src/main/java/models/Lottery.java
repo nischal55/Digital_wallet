@@ -1,11 +1,27 @@
 package models;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name="lottery")
 public class Lottery extends BaseEntity{
+    
+    @Column(name="lottery_name",unique = false, nullable=false)
     private String lottery_name;
+    
+    @Column(name="ticket_price",unique = false, nullable=false)
     private double ticket_price;
+    
+    @Column(name="prize_amount",unique = false, nullable=false)
     private double prize_amount;
+    
+    @Column(name="draw_date",unique = false, nullable=false)
     private String draw_date;
+    
+    @Column(name="status",unique = false, nullable=false)
     private String status;
+    
+    @Column(name="createdAt",unique = false, nullable=false)
     private String createdAt;
 
     public String getLottery_name() {

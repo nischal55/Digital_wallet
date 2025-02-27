@@ -1,10 +1,21 @@
 package models;
 
+import jakarta.persistence.*;
 
+@Entity
+@Table(name="lotteryTickets")
 public class LotteryTicket extends BaseEntity{
+    
+    @Column(name="lotteryId",unique = false, nullable=false)
     private Long lottery_id;
+    
+    @Column(name="userId",unique = false, nullable=false)
     private User user_id;
+    
+    @Column(name="ticket_number",unique = false, nullable=false)
     private int ticket_number;
+    
+    @Column(name="createdAt",unique = false, nullable=false)
     private String createdAt;
 
     public Long getLottery_id() {
