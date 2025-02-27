@@ -1,13 +1,30 @@
 package models;
 
-public class User extends BaseEntity{
-    private String username;
-    private String email;
-    private String password;
-    private String contact;
-    private String full_name;
-    private String userType;
+import jakarta.persistence.*;
 
+@Entity
+@Table(name="users")
+public class User extends BaseEntity{
+    @Column(name="username", unique=true, nullable=false)
+    private String username;
+    
+    @Column(name="email", unique=true, nullable=false)
+    private String email;
+    
+    @Column(name="password", unique=false, nullable=false)
+    private String password;
+    
+    @Column(name="contact", unique=true, nullable=false)
+    private String contact;
+    
+    @Column(name="fullName", unique=false, nullable=false)
+    private String full_name;
+    
+    @Column(name="user_type", unique=false, nullable=false)
+    private String userType;
+    
+    
+    //Getters and Setters
     public String getUsername() {
         return username;
     }
