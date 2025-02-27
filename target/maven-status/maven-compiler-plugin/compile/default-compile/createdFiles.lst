@@ -1,1 +1,7 @@
-com/example/App.class
+models/User.class
+models/Lottery.class
+models/LotteryTicket.class
+models/Transaction.class
+data/UserData.class
+models/Admin.class
+models/Wallet.class

@@ -1,18 +1,9 @@
 package models;
 
 
-public class Wallet {
-    private int walletId;
+public class Wallet extends BaseEntity{
     private User userId;
     private double balance;
-
-    public int getWalletId() {
-        return walletId;
-    }
-
-    public void setWalletId(int walletId) {
-        this.walletId = walletId;
-    }
 
     public User getUserId() {
         return userId;
