@@ -10,7 +10,7 @@ public class LotteryTicket extends BaseEntity{
     private Long lottery_id;
     
     @Column(name="userId",unique = false, nullable=false)
-    private User user_id;
+    private Long user_id;
     
     @Column(name="ticket_number",unique = false, nullable=false)
     private int ticket_number;
@@ -26,11 +26,11 @@ public class LotteryTicket extends BaseEntity{
         this.lottery_id = lottery_id;
     }
 
-    public User getUser_id() {
+    public Long getUser_id() {
         return user_id;
     }
 
-    public void setUser_id(User user_id) {
+    public void setUser_id(Long user_id) {
         this.user_id = user_id;
     }
 

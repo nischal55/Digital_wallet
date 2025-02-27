@@ -1,7 +1,7 @@
-/home/nischal/Digital_Wallet/digital_wallet/src/main/java/data/UserData.java
 /home/nischal/Digital_Wallet/digital_wallet/src/main/java/models/User.java
 /home/nischal/Digital_Wallet/digital_wallet/src/main/java/models/Lottery.java
 /home/nischal/Digital_Wallet/digital_wallet/src/main/java/models/Wallet.java
 /home/nischal/Digital_Wallet/digital_wallet/src/main/java/models/LotteryTicket.java
 /home/nischal/Digital_Wallet/digital_wallet/src/main/java/models/Transaction.java
-/home/nischal/Digital_Wallet/digital_wallet/src/main/java/models/Admin.java
+/home/nischal/Digital_Wallet/digital_wallet/src/main/java/models/BaseEntity.java
+/home/nischal/Digital_Wallet/digital_wallet/src/main/java/views/testConnection.java

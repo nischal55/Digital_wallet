@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name="transactions")
-public class Transaction {
+public class Transaction extends BaseEntity{
     
     @Column(name="walletId", unique = false, nullable = false)
     private Long walletId;
@@ -12,7 +12,7 @@ public class Transaction {
     @Column(name="transactionType",unique = false, nullable=false)
     private String transactionType;
     
-    @Column(name="transactionType",unique = false, nullable=false)
+    @Column(name="amount",unique = false, nullable=false)
     private double amount;
     
     @Column(name="status",unique = false, nullable=false)
