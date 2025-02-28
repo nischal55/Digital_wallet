@@ -26,19 +26,7 @@ public class Index {
         Auth as = new Auth();
         switch(option){
             case 1:
-               if(as.login_view()){
-                   userType = as.userType;
-                   userId = as.userId;
-                   if(userType.equalsIgnoreCase("customer")){
-                       Dashboard db = new Dashboard();
-                       db.userId = userId;
-                       db.showDashboard();
-                   }else{
-                       
-                   }
-               }else{
-                   System.out.println("Invalid Credential");
-               }
+               as.login_view();
                break;
             case 2:
                if(as.register_view()){

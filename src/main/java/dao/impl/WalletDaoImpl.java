@@ -21,6 +21,16 @@ public class WalletDaoImpl extends BaseDaoImpl<Wallet, Long> implements WalletDA
    
     @Override
     public Wallet getWalletByUserId(Long id) {
-       return super.findById(id);
+        Wallet wallet=null;
+        try {
+            TypedQuery<Wallet> query = em.createQuery("SELECT u FROM Wallet u WHERE u.userId = :userId", Wallet.class);
+            query.setParameter("userId", id);
+            wallet = query.getSingleResult(); 
+            return wallet;
+            
+        }catch(Exception e){
+            
+        return wallet;
+        }
     }
 }

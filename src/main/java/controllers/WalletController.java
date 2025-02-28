@@ -24,7 +24,7 @@ public class WalletController {
     
     
     public double getBalanceByUserId(Long id){
-        double balance = wd.getWalletByUserId(userId).getBalance();
+        double balance = wd.getWalletByUserId(id).getBalance();
         return balance;
     }
     
@@ -33,7 +33,7 @@ public class WalletController {
         
         boolean status = false;
         double old_balance = wc.getBalanceByUserId(userId);
-        Wallet wallet = wd.findById(userId);
+        Wallet wallet = wd.getWalletByUserId(userId);
         wallet.setBalance(old_balance+wc.balance);
         wallet.setUserId(wc.userId);
        

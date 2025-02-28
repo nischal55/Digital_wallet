@@ -4,40 +4,42 @@ import controllers.UserController;
 import java.util.Scanner;
 import controllers.WalletController;
 
-
 public class Auth {
-    
+
     public String userType;
     public Long userId;
     UserController uc = new UserController();
     WalletController wc = new WalletController();
     Scanner sc = new Scanner(System.in);
 
-    public boolean login_view() {
+    public void login_view() {
         System.out.println("Enter username:");
         String username = sc.nextLine();
         System.out.println("Enter password:");
         String password = sc.nextLine();
         boolean status = false;
-        
-        if(username==null){
+
+        if (username == null) {
             status = false;
         }
-        if(password==null){
-            status=false;
+        if (password == null) {
+            status = false;
         }
 
         uc.username = username;
         uc.password = password;
 
         if (uc.login_user(uc)) {
-            status = true;
             userId = uc.getUserId(uc);
             userType = uc.userType(uc);
-            
-            System.out.println("userId"+userId);
+            if (userType.equalsIgnoreCase("customer")) {
+                Dashboard db = new Dashboard();
+                db.userId = userId;
+                db.showDashboard();
+            } else {
+                System.out.println("Invalid Credential");
+            }
         }
-        return status;
     }
 
     public boolean register_view() {
@@ -63,10 +65,10 @@ public class Auth {
         if (uc.register_user(uc)) {
             userId = uc.getUserId(uc);
             wc.userId = userId;
-            if(wc.createWallet(wc)){
+            if (wc.createWallet(wc)) {
                 status = true;
             }
-            
+
         }
         return status;
     }

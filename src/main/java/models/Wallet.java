@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 @Entity
 @Table(name="wallets")
 public class Wallet extends BaseEntity{
-    @Column(name="userId",unique=false, nullable = false)
+    @Column(name="userId",unique=true, nullable = false)
     private Long userId;
     
     @Column(name="balance",unique = false, nullable = false)

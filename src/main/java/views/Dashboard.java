@@ -19,6 +19,7 @@ public class Dashboard {
 
     void showDashboard() {
         while (true) {
+            System.out.println("User id: "+userId);
             System.out.println("******************");
             System.out.println("User Dashboard");
             System.out.println("******************");
@@ -32,12 +33,10 @@ public class Dashboard {
 
             switch (option) {
                 case 1:
-                    wc.userId = userId;
                     System.out.println("Balance: " + wc.getBalanceByUserId(userId));
                     break;
 
                 case 2:
-                    wc.userId = userId;
                     System.out.println("Enter Amount to Load:");
                     double balance = sc.nextDouble();
                     if(balance<1){
@@ -47,7 +46,7 @@ public class Dashboard {
                         break;
                     }
                     wc.balance = balance;
-
+                    wc.userId = userId;
                     if (wc.loadBalance(wc)) {
                         System.out.println("******************");
                         System.out.println("Balance: " + wc.getBalanceByUserId(userId));
