@@ -28,6 +28,22 @@ public class WalletController {
         return balance;
     }
     
+    
+    public boolean loadBalance(WalletController wc){
+        
+        boolean status = false;
+        double old_balance = wc.getBalanceByUserId(userId);
+        Wallet wallet = wd.findById(userId);
+        wallet.setBalance(old_balance+wc.balance);
+        wallet.setUserId(wc.userId);
+       
+        
+        if(wd.update(wallet)){
+            status = true;
+        }
+        
+        return status;
+    }
    
     
 }

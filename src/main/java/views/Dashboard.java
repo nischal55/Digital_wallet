@@ -35,8 +35,37 @@ public class Dashboard {
                     wc.userId = userId;
                     System.out.println("Balance: " + wc.getBalanceByUserId(userId));
                     break;
-                case 3:
+
+                case 2:
+                    wc.userId = userId;
+                    System.out.println("Enter Amount to Load:");
+                    double balance = sc.nextDouble();
+                    if(balance<1){
+                        System.out.println("******************");
+                        System.out.println("Load Positive Balance");
+                        System.out.println("******************");
+                        break;
+                    }
+                    wc.balance = balance;
+
+                    if (wc.loadBalance(wc)) {
+                        System.out.println("******************");
+                        System.out.println("Balance: " + wc.getBalanceByUserId(userId));
+                        System.out.println("Successfully Loaded Balance");
+                        System.out.println("******************");
+                    }
+
                     break;
+                case 3:
+                    System.out.println("case2");
+                    break;
+
+                case 4:
+                    System.out.println("case2");
+                    break;
+
+                case 5:
+                    System.exit(0);
             }
         }
     }

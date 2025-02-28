@@ -43,6 +43,7 @@ public class BaseDaoImpl<T, ID extends Serializable> implements BaseDAO<T, ID>{
             transaction.begin();
             em.merge(entity);
             transaction.commit();
+            status = true;
             
         }catch(Exception e){
             transaction.rollback();
