@@ -4,6 +4,7 @@
  */
 package views;
 
+import controllers.TransactionController;
 import controllers.WalletController;
 import java.util.Scanner;
 
@@ -16,6 +17,7 @@ public class Dashboard {
     public Long userId;
     Scanner sc = new Scanner(System.in);
     WalletController wc = new WalletController();
+    TransactionController tc = new TransactionController();
 
     void showDashboard() {
         while (true) {
@@ -48,6 +50,12 @@ public class Dashboard {
                     wc.balance = balance;
                     wc.userId = userId;
                     if (wc.loadBalance(wc)) {
+                        Long walletId = wc.getWalletIdByUserId(userId);
+                        tc.amount = balance;
+                        tc.status = true;
+                        tc.transactionType="load_balance";
+                        tc.walletId = walletId;
+                        tc.addTransaction(tc);
                         System.out.println("******************");
                         System.out.println("Balance: " + wc.getBalanceByUserId(userId));
                         System.out.println("Successfully Loaded Balance");
