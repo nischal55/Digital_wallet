@@ -1,19 +1,16 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package views;
 
 import controllers.UserController;
 import java.util.Scanner;
+import controllers.WalletController;
 
-/**
- *
- * @author nischal
- */
+
 public class Auth {
-
+    
+    public String userType;
+    public Long userId;
     UserController uc = new UserController();
+    WalletController wc = new WalletController();
     Scanner sc = new Scanner(System.in);
 
     public boolean login_view() {
@@ -35,6 +32,10 @@ public class Auth {
 
         if (uc.login_user(uc)) {
             status = true;
+            userId = uc.getUserId(uc);
+            userType = uc.userType(uc);
+            
+            System.out.println("userId"+userId);
         }
         return status;
     }
@@ -60,7 +61,12 @@ public class Auth {
         uc.userType = userType;
         uc.password = password;
         if (uc.register_user(uc)) {
-            status = true;
+            userId = uc.getUserId(uc);
+            wc.userId = userId;
+            if(wc.createWallet(wc)){
+                status = true;
+            }
+            
         }
         return status;
     }

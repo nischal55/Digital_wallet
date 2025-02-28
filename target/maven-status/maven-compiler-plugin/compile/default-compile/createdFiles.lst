@@ -1,7 +1,11 @@
+views/AdminDashboard.class
 models/User.class
+controllers/WalletController.class
 models/Lottery.class
+dao/WalletDAO.class
 models/Transaction.class
 views/testConnection.class
+dao/impl/BaseDaoImpl.class
 models/Wallet.class
 dao/impl/UserDaoImpl.class
 controllers/UserController.class
@@ -9,5 +13,7 @@ views/Index.class
 models/LotteryTicket.class
 dao/UserDAO.class
 views/Dashboard.class
+dao/BaseDAO.class
 views/Auth.class
+dao/impl/WalletDaoImpl.class
 models/BaseEntity.class

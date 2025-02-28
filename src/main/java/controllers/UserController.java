@@ -1,8 +1,5 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package controllers;
+
 import dao.UserDAO;
 import dao.impl.UserDaoImpl;
 import models.User;
@@ -42,12 +39,18 @@ public class UserController{
        boolean status = false;
        if(userDAO.authenticateUser(uc.username, uc.password)){
            status = true;
+           
        }
        return status;
     }
     
     public String userType(UserController uc){
-        String userType = userDAO.getUserType(uc.userType);
+        String userType = userDAO.getUserType(uc.username);
         return userType;
+    }
+    
+    public Long getUserId(UserController uc){
+        Long userId = userDAO.getUserId(uc.username);
+        return userId;
     }
 }

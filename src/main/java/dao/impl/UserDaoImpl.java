@@ -3,10 +3,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package dao.impl;
+
 import dao.UserDAO;
 import jakarta.persistence.*;
-import java.io.Serializable;
-import java.util.List;
 import models.User;
 import org.mindrot.jbcrypt.BCrypt;
 
@@ -14,12 +13,12 @@ import org.mindrot.jbcrypt.BCrypt;
  *
  * @author nischal
  */
-public class UserDaoImpl extends BaseDaoImpl<User, Long> implements UserDAO{
-    private EntityManagerFactory emf = Persistence.createEntityManagerFactory("digital_wallet");
-    private EntityManager em = emf.createEntityManager();
-    
-    
-    public UserDaoImpl(){
+public class UserDaoImpl extends BaseDaoImpl<User, Long> implements UserDAO {
+
+    private final EntityManagerFactory emf = Persistence.createEntityManagerFactory("digital_wallet");
+    private final EntityManager em = emf.createEntityManager();
+
+    public UserDaoImpl() {
         super(User.class);
     }
 
@@ -27,13 +26,13 @@ public class UserDaoImpl extends BaseDaoImpl<User, Long> implements UserDAO{
     public boolean saveUser(User user) {
         boolean status = false;
         EntityTransaction transaction = em.getTransaction();
-        try{
+        try {
             transaction.begin();
             em.persist(user);
             user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt(12)));
             transaction.commit();
-            status=true;
-        }catch(Exception e){
+            status = true;
+        } catch (Exception e) {
             transaction.rollback();
             e.printStackTrace();
         }
@@ -41,36 +40,16 @@ public class UserDaoImpl extends BaseDaoImpl<User, Long> implements UserDAO{
     }
 
     @Override
-    public User getUserById(Long id) {
-       return findById(id);
-    }
-
-    @Override
-    public List<User> getAllUsers() {
-        return findAll();
-    }
-
-    @Override
-    public boolean updateUser(User user) {
-       return update(user);
-    }
-
-    @Override
-    public boolean deleteUser(Long id) {
-      return deleteById(id);
-    }
-    
-    @Override
-    public User getUserByUsername(String username){
+    public User getUserByUsername(String username) {
         return em.find(User.class, username);
     }
-    
+
     @Override
-    public boolean authenticateUser(String username, String password){
+    public boolean authenticateUser(String username, String password) {
         boolean status = false;
-         try {
+        try {
             TypedQuery<User> query = em.createQuery("SELECT u FROM User u WHERE u.username = :username", User.class);
-            query.setParameter("username",username);
+            query.setParameter("username", username);
             User user = query.getSingleResult();
 
             if (user != null && BCrypt.checkpw(password, user.getPassword())) {
@@ -79,22 +58,43 @@ public class UserDaoImpl extends BaseDaoImpl<User, Long> implements UserDAO{
         } catch (NoResultException e) {
             status = false;
         }
-        
+
         return status;
     }
 
     @Override
-    public String getUserType(String username){
-        String userType;
-        try{
-           TypedQuery<User> query = em.createQuery("SELECT u.userType FROM User u WHERE u.username = :username", User.class);
-            query.setParameter("username",username);
-            User user = query.getSingleResult();
-            userType = user.getUserType();
-        }catch(Exception e){
-            userType = null;
-        }    
+
+    public String getUserType(String username) {
+        String userType = null; // Default to null
+        try {
+            TypedQuery<String> query = em.createQuery("SELECT u.userType FROM User u WHERE u.username = :username", String.class);
+            query.setParameter("username", username);
+            userType = query.getSingleResult();  // Returns the userType as String
+        } catch (NoResultException e) {
+            System.out.println("No user found with the given username.");
+        } catch (NonUniqueResultException e) {
+            System.out.println("Multiple users found with the same username.");
+        } catch (Exception e) {
+            System.out.println("An error occurred: " + e.getMessage());
+        }
         return userType;
     }
     
+    @Override
+    public Long getUserId(String username){
+        Long userId = null;
+         try {
+            TypedQuery<Long> query = em.createQuery("SELECT u.id FROM User u WHERE u.username = :username", Long.class);
+            query.setParameter("username", username);
+            userId = query.getSingleResult(); 
+        } catch (NoResultException e) {
+            System.out.println("No user found with the given username.");
+        } catch (NonUniqueResultException e) {
+            System.out.println("Multiple users found with the same username.");
+        } catch (Exception e) {
+            System.out.println("An error occurred: " + e.getMessage());
+        }
+        return userId;
+    }
+
 }

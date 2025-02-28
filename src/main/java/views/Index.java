@@ -7,6 +7,9 @@ import controllers.UserController;
 
 public class Index {
     public static void main(String args[]){
+        
+        Long userId = null;
+        String userType =null;
         while(true){            
         System.out.println("**************************");
         System.out.println("Welcome To Digital Wallet");
@@ -24,16 +27,22 @@ public class Index {
         switch(option){
             case 1:
                if(as.login_view()){
-                   System.out.println("Logged In");
-                   Dashboard db =new Dashboard();
-                   db.showDashboard();
+                   userType = as.userType;
+                   userId = as.userId;
+                   if(userType.equalsIgnoreCase("customer")){
+                       Dashboard db = new Dashboard();
+                       db.userId = userId;
+                       db.showDashboard();
+                   }else{
+                       
+                   }
                }else{
                    System.out.println("Invalid Credential");
                }
                break;
             case 2:
                if(as.register_view()){
-                   System.out.println("Successfully Inserted");
+                   System.out.println("Successfully Registered");
                }
                break;
             case 3:
