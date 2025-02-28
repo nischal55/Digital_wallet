@@ -14,21 +14,23 @@ import models.Transaction;
 public class TransactionController {
     public String transactionType;
     public double amount;
-    public boolean status;
+    public String status;
     public Long walletId;
     public String timeStamp;
     
     TransactionDAO td = new TransactionDaoImpl();
     
     public void addTransaction(TransactionController tc){
-        Transaction transaction = new Transaction();
-        transaction.setTransactionType(tc.transactionType);
-        transaction.setAmount(tc.amount);
-        transaction.setStatus(tc.status);
-        transaction.setWalletId(tc.walletId);
+        Transaction transc = new Transaction();
+        transc.setTransactionType(tc.transactionType);
+        transc.setAmount(tc.amount);
+        transc.setStatus(tc.status);
+        transc.setWalletId(tc.walletId);
         
-        if(td.save(transaction)){
+        if(td.save(transc)){
             System.out.println("Transaction saved Successfully");
+        }else{
+            System.out.println("Transaction Failed to be added");
         }
     }
 }

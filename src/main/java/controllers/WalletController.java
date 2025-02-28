@@ -46,7 +46,7 @@ public class WalletController {
     }
     
     public Long getWalletIdByUserId(Long id){
-        Long walletId = wd.getWalletByUserId(id).getUserId();
+        Long walletId = wd.getWalletByUserId(id).getId();
         return walletId;
     }
    

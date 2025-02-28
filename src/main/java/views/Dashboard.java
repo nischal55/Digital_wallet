@@ -52,7 +52,7 @@ public class Dashboard {
                     if (wc.loadBalance(wc)) {
                         Long walletId = wc.getWalletIdByUserId(userId);
                         tc.amount = balance;
-                        tc.status = true;
+                        tc.status = "Completed";
                         tc.transactionType="load_balance";
                         tc.walletId = walletId;
                         tc.addTransaction(tc);
@@ -64,7 +64,8 @@ public class Dashboard {
 
                     break;
                 case 3:
-                    System.out.println("case2");
+                     Long walletId = wc.getWalletIdByUserId(userId);
+                     System.out.println("walletID" + walletId);
                     break;
 
                 case 4:

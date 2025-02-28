@@ -16,11 +16,8 @@ public class Transaction extends BaseEntity{
     private double amount;
     
     @Column(name="status",unique = false, nullable=false)
-    private boolean status;
-    
-    @Column(name="timeStamp",unique = false, nullable=false)
-    private String timeStamp;
-
+    private String status;
+   
     
     //getters and setters
     
@@ -48,21 +45,14 @@ public class Transaction extends BaseEntity{
         this.amount = amount;
     }
 
-    public boolean isStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(boolean status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
-    public String getTimeStamp() {
-        return timeStamp;
-    }
-
-    public void setTimeStamp(String timeStamp) {
-        this.timeStamp = timeStamp;
-    }
 
 
 

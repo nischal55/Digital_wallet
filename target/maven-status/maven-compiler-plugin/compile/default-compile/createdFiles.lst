@@ -8,10 +8,13 @@ views/testConnection.class
 dao/impl/BaseDaoImpl.class
 models/Wallet.class
 dao/impl/UserDaoImpl.class
+controllers/TransactionController.class
 controllers/UserController.class
 views/Index.class
+dao/impl/TransactionDaoImpl.class
 models/LotteryTicket.class
 dao/UserDAO.class
+dao/TransactionDAO.class
 views/Dashboard.class
 dao/BaseDAO.class
 views/Auth.class
