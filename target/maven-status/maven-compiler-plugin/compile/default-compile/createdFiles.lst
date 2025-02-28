@@ -8,5 +8,6 @@ controllers/UserController.class
 views/Index.class
 models/LotteryTicket.class
 dao/UserDAO.class
+views/Dashboard.class
 views/Auth.class
 models/BaseEntity.class

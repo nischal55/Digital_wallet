@@ -9,10 +9,11 @@ import models.User;
 
 public interface UserDAO {
     boolean saveUser(User user);
-    User getUserById(int id);
+    User getUserById(Long id);
     List<User> getAllUsers();
-    void updateUser(User user);
-    void deleteUser(int id); 
+    boolean updateUser(User user);
+    boolean deleteUser(Long id); 
     User getUserByUsername(String username);
     boolean authenticateUser(String username,String password);
+    String getUserType(String username);
 }

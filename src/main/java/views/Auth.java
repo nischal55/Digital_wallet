@@ -22,6 +22,13 @@ public class Auth {
         System.out.println("Enter password:");
         String password = sc.nextLine();
         boolean status = false;
+        
+        if(username==null){
+            status = false;
+        }
+        if(password==null){
+            status=false;
+        }
 
         uc.username = username;
         uc.password = password;

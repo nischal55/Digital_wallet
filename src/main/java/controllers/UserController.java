@@ -45,4 +45,9 @@ public class UserController{
        }
        return status;
     }
+    
+    public String userType(UserController uc){
+        String userType = userDAO.getUserType(uc.userType);
+        return userType;
+    }
 }

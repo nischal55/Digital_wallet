@@ -5,6 +5,7 @@
 package dao.impl;
 import dao.UserDAO;
 import jakarta.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 import models.User;
 import org.mindrot.jbcrypt.BCrypt;
@@ -13,9 +14,14 @@ import org.mindrot.jbcrypt.BCrypt;
  *
  * @author nischal
  */
-public class UserDaoImpl implements UserDAO{
+public class UserDaoImpl extends BaseDaoImpl<User, Long> implements UserDAO{
     private EntityManagerFactory emf = Persistence.createEntityManagerFactory("digital_wallet");
     private EntityManager em = emf.createEntityManager();
+    
+    
+    public UserDaoImpl(){
+        super(User.class);
+    }
 
     @Override
     public boolean saveUser(User user) {
@@ -35,42 +41,23 @@ public class UserDaoImpl implements UserDAO{
     }
 
     @Override
-    public User getUserById(int id) {
-       return em.find(User.class, id);
+    public User getUserById(Long id) {
+       return findById(id);
     }
 
     @Override
     public List<User> getAllUsers() {
-        return em.createQuery("SELECT u from USER u", User.class).getResultList();
+        return findAll();
     }
 
     @Override
-    public void updateUser(User user) {
-        EntityTransaction transaction = em.getTransaction();
-        try{
-            transaction.begin();
-            em.merge(user);
-            transaction.commit();
-        }catch(Exception e){
-            transaction.rollback();
-            e.printStackTrace();
-        }
+    public boolean updateUser(User user) {
+       return update(user);
     }
 
     @Override
-    public void deleteUser(int id) {
-       EntityTransaction transaction = em.getTransaction();
-       try{
-           transaction.begin();
-           User user = em.find(User.class,id);
-           if(user!=null){
-               em.remove(user);
-           }
-           transaction.commit();
-       }catch(Exception e){
-           transaction.rollback();
-           e.printStackTrace();
-       }
+    public boolean deleteUser(Long id) {
+      return deleteById(id);
     }
     
     @Override
@@ -96,5 +83,18 @@ public class UserDaoImpl implements UserDAO{
         return status;
     }
 
+    @Override
+    public String getUserType(String username){
+        String userType;
+        try{
+           TypedQuery<User> query = em.createQuery("SELECT u.userType FROM User u WHERE u.username = :username", User.class);
+            query.setParameter("username",username);
+            User user = query.getSingleResult();
+            userType = user.getUserType();
+        }catch(Exception e){
+            userType = null;
+        }    
+        return userType;
+    }
     
 }
