@@ -2,6 +2,7 @@ package controllers;
 
 import dao.UserDAO;
 import dao.impl.UserDaoImpl;
+import java.util.List;
 import models.User;
 
 /**
@@ -52,5 +53,10 @@ public class UserController{
     public Long getUserId(UserController uc){
         Long userId = userDAO.getUserId(uc.username);
         return userId;
+    }
+    
+    public List<User> getAllUsers(){
+        List<User> users = userDAO.findAll();
+        return users;
     }
 }

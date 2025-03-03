@@ -21,7 +21,7 @@ public class Dashboard {
 
     void showDashboard() {
         while (true) {
-            System.out.println("User id: "+userId);
+            System.out.println("User id: " + userId);
             System.out.println("******************");
             System.out.println("User Dashboard");
             System.out.println("******************");
@@ -41,7 +41,7 @@ public class Dashboard {
                 case 2:
                     System.out.println("Enter Amount to Load:");
                     double balance = sc.nextDouble();
-                    if(balance<1){
+                    if (balance < 1) {
                         System.out.println("******************");
                         System.out.println("Load Positive Balance");
                         System.out.println("******************");
@@ -53,7 +53,7 @@ public class Dashboard {
                         Long walletId = wc.getWalletIdByUserId(userId);
                         tc.amount = balance;
                         tc.status = "Completed";
-                        tc.transactionType="load_balance";
+                        tc.transactionType = "load_balance";
                         tc.walletId = walletId;
                         tc.addTransaction(tc);
                         System.out.println("******************");
@@ -64,8 +64,19 @@ public class Dashboard {
 
                     break;
                 case 3:
-                     Long walletId = wc.getWalletIdByUserId(userId);
-                     System.out.println("walletID" + walletId);
+                    System.out.println("******************");
+                    System.out.println("Enter the Balance you want to transfer:");
+                    double transfer_amount = sc.nextDouble();
+                    
+                    sc.nextLine();
+                    System.out.println("Enter the contact number you want to transfer balance to:");
+                    String contact_no = sc.nextLine();
+                   
+
+                    if (wc.balanceTransfer(userId, contact_no, transfer_amount)) {
+                        System.out.println("Successfully Transfered balance");
+                        break;
+                    }
                     break;
 
                 case 4:

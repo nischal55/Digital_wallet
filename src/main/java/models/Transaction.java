@@ -1,6 +1,7 @@
 package models;
 
 import jakarta.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name="transactions")
@@ -17,7 +18,14 @@ public class Transaction extends BaseEntity{
     
     @Column(name="status",unique = false, nullable=false)
     private String status;
-   
+
+    @Column(name="timeStamp",unique = false, nullable=false)
+    private LocalDateTime timeStamp;
+    
+    
+    public Transaction(){
+        this.timeStamp = LocalDateTime.now();
+    }
     
     //getters and setters
     
@@ -53,6 +61,12 @@ public class Transaction extends BaseEntity{
         this.status = status;
     }
 
+    public LocalDateTime getTimeStamp(){
+        return timeStamp;
+    }
+    
+
+    
 
 
 

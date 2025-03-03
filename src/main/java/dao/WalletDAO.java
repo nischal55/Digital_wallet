@@ -10,4 +10,5 @@ public interface WalletDAO {
     List<Wallet>  findAll();
     Wallet findById(Long id);
     Wallet getWalletByUserId(Long id);
+    boolean transferBalance(Long userId, String contact, double transfer_amount);
 }

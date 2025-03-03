@@ -4,7 +4,13 @@
  */
 package views;
 
+import controllers.LotteryController;
+import controllers.TransactionController;
+import controllers.UserController;
+import java.util.List;
 import java.util.Scanner;
+import models.User;
+import models.Transaction;
 
 /**
  *
@@ -12,31 +18,112 @@ import java.util.Scanner;
  */
 public class AdminDashboard {
 
+    public Long userId;
     Scanner sc = new Scanner(System.in);
+    UserController uc = new UserController();
+    TransactionController tc = new TransactionController();
+    LotteryController lc = new LotteryController();
 
     void showDashboard() {
-        System.out.println("******************");
-        System.out.println("Admin Dashboard");
-        System.out.println("******************");
-        System.out.println("Choose the Operation");
-        System.out.println("1. Create Wallet");
-        System.out.println("2. Check Balance");
-        System.out.println("3. Show lottery Schemes");
-        System.out.println("4. Logout");
-        int option = sc.nextInt();
-        
-        switch(option){
-            case 1:
-                System.out.println("Balacne");
-                break;
-            case 2:
-                System.out.println("Balacne");
-                break;
-            case 3:
-                System.out.println("Balacne");
-                break;
-            case 4:
-               break;
+        while (true) {
+
+            System.out.println("******************");
+            System.out.println("Admin Dashboard");
+            System.out.println("******************");
+            System.out.println("Choose the Operation");
+            System.out.println("1. Check Users Report");
+            System.out.println("2. Check Transaction Report");
+            System.out.println("3. Show lottery Schemes");
+            System.out.println("4. Add lottery Schemes");
+            System.out.println("5. Show lottery Applicants");
+            System.out.println("6. Logout");
+            int option = sc.nextInt();
+            switch (option) {
+                case 1:
+                    List<User> users = uc.getAllUsers();
+                    System.out.println("*********************");
+                    System.out.println("List of Users");
+                    System.out.println("*********************");
+
+                    System.out.println("*********************************************************************************************************");
+                    System.out.printf("%-10s %-20s %-15s %-15s %-25s %-10s%n", "UserId", "Full Name", "Username", "Contact", "Email", "User Type");
+                    System.out.println("*********************************************************************************************************");
+
+                    for (User user : users) {
+                        System.out.printf("%-10d %-20s %-15s %-15s %-25s %-10s%n",
+                                user.getId(),
+                                user.getFull_name(),
+                                user.getUsername(),
+                                user.getContact(),
+                                user.getEmail(),
+                                user.getUserType());
+                    }
+                    break;
+                case 2:
+                    List<Transaction> transactions = tc.getAllTransaction();
+                    System.out.println("*********************");
+                    System.out.println("Transaction Report");
+                    System.out.println("*********************");
+
+                    System.out.println("*********************************************************************************************************");
+                    System.out.printf("%-10s %-20s %-15s %-15s %-25s %-10s%n", "TransactionID", "Transaction Type", "Amount", "Status", "WalletId", "Time Stamp");
+                    System.out.println("*********************************************************************************************************");
+                    for (Transaction transaction : transactions) {
+                        System.out.printf("%-10d %-20s %-15s %-15s %-25s %-10s%n",
+                                transaction.getId(),
+                                transaction.getTransactionType(),
+                                transaction.getAmount(),
+                                transaction.getStatus(),
+                                transaction.getWalletId(),
+                                transaction.getTimeStamp());
+                    }
+                    break;
+                case 3:
+                    System.out.println("Balacne");
+                    break;
+                case 4:
+                    System.out.println("*********************");
+                    System.out.println("Add Lottery Scheme");
+                    System.out.println("*********************");
+                    
+                    System.out.println("Enter the lottery Name:");
+                    String lotteryName = sc.nextLine();
+                    
+                    sc.nextLine();
+                    System.out.println("Enter Prize Amount:");
+                    double prize_amount = sc.nextDouble();
+                    
+                    
+                    System.out.println("Enter the draw date Format YYYY-MM-DD");
+                    String drawDate = sc.nextLine();
+                    sc.nextLine();
+                    
+                    System.out.println("Enter Ticket Price");
+                    double ticket_price = sc.nextDouble();
+                    
+                    
+                    lc.lotterName = lotteryName;
+                    lc.prize_amount = prize_amount;
+                    lc.drawDate = drawDate;
+                    lc.ticketPrice = ticket_price;
+                            
+                    
+                    if(lc.saveLottery(lc)){
+                        System.out.println("SuccessFully Lottery Added");
+                        break;
+                    }
+                    
+                    
+                    
+                    
+                    break;
+                case 5:
+                    break;
+                case 6:
+                    System.exit(0);
+                    break;
+            }
         }
+
     }
 }

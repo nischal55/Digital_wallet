@@ -50,5 +50,16 @@ public class WalletController {
         return walletId;
     }
    
+    public boolean balanceTransfer(Long userId, String contact, double transfer_amount){
+        boolean status = false;
+        System.out.println("contact"+contact);
+        System.out.println("Balance:"+transfer_amount);
+        if(wd.transferBalance(userId, contact, transfer_amount)){
+            status = true;
+        }
+        
+        
+        return status;
+    }
     
 }

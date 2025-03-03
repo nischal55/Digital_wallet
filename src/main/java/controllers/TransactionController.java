@@ -6,6 +6,7 @@ package controllers;
 
 import dao.TransactionDAO;
 import dao.impl.TransactionDaoImpl;
+import java.util.List;
 import models.Transaction;
 /**
  *
@@ -32,5 +33,10 @@ public class TransactionController {
         }else{
             System.out.println("Transaction Failed to be added");
         }
+    }
+    
+    public List<Transaction> getAllTransaction(){
+        List<Transaction> transactions = td.findAll();
+        return transactions;
     }
 }

@@ -37,7 +37,10 @@ public class Auth {
                 db.userId = userId;
                 db.showDashboard();
             } else {
-                System.out.println("Invalid Credential");
+                AdminDashboard ad = new AdminDashboard();
+                ad.userId = userId;
+                ad.showDashboard();
+               
             }
         }
     }
