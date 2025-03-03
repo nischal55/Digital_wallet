@@ -3,7 +3,7 @@ package models;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name="wallets")
+@Table(name="wallet")
 public class Wallet extends BaseEntity{
     @Column(name="userId",unique=true, nullable = false)
     private Long userId;

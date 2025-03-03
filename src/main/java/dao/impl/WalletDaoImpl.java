@@ -36,7 +36,7 @@ public class WalletDaoImpl extends BaseDaoImpl<Wallet, Long> implements WalletDA
     @Override
     public boolean transferBalance(Long userId, String contact, double transfer_amount) {
         boolean status = false;
-        String sql = "SELECT w.* FROM wallets w JOIN users u ON w.userId = u.id WHERE u.contact = ?";
+        String sql = "SELECT w.* FROM wallet w JOIN users u ON w.userId = u.id WHERE u.contact = ?";
         Query query = em.createNativeQuery(sql, Wallet.class);
         query.setParameter(1, contact);
         Wallet wallet_receiver = (Wallet) query.getSingleResult();
