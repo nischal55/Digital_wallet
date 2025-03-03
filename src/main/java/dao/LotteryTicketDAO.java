@@ -17,5 +17,7 @@ public interface LotteryTicketDAO {
     boolean deleteById(Long id);  
     LotteryTicket findById(Long id);
     List<LotteryTicket> findAll();
+    int getLatestLotteryTicket();
+    List<LotteryTicket> getTicketByUserId(Long id);
     
 }

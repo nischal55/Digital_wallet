@@ -5,6 +5,7 @@ views/testConnection.class
 models/Wallet.class
 dao/impl/UserDaoImpl.class
 controllers/UserController.class
+controllers/LotteryTicketController.class
 dao/impl/TransactionDaoImpl.class
 views/Dashboard.class
 views/Auth.class
@@ -13,6 +14,7 @@ models/BaseEntity.class
 controllers/WalletController.class
 models/Lottery.class
 dao/LotteryDAO.class
+dao/impl/LotteryTicketDaoImpl.class
 dao/WalletDAO.class
 dao/impl/BaseDaoImpl.class
 controllers/TransactionController.class
@@ -20,6 +22,7 @@ views/Index.class
 models/LotteryTicket.class
 dao/UserDAO.class
 controllers/LotteryController.class
+dao/LotteryTicketDAO.class
 dao/TransactionDAO.class
 dao/BaseDAO.class
 dao/impl/WalletDaoImpl.class

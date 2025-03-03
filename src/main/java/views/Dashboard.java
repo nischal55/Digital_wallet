@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.Scanner;
 import models.Lottery;
 import controllers.LotteryController;
+import controllers.LotteryTicketController;
+import models.LotteryTicket;
 
 /**
  *
@@ -22,6 +24,7 @@ public class Dashboard {
     WalletController wc = new WalletController();
     TransactionController tc = new TransactionController();
     LotteryController lc = new LotteryController();
+    LotteryTicketController lt = new LotteryTicketController();
 
     void showDashboard() {
         while (true) {
@@ -34,7 +37,9 @@ public class Dashboard {
             System.out.println("2. Load Balance");
             System.out.println("3. Transfer Balance");
             System.out.println("4. Buy lottery Schemes");
-            System.out.println("5. Exit");
+            System.out.println("5. Show Purchased Tickets");
+            System.out.println("6. Show Transaction Report");
+            System.out.println("7. Exit");
             int option = sc.nextInt();
 
             switch (option) {
@@ -89,28 +94,64 @@ public class Dashboard {
                     System.out.println("*********************");
 
                     System.out.println("**************************************************************************************************************************");
-                    System.out.printf("%-10s %-20s %-15s %-15s %-25s %-25s %-25s%n", "lottery_No", "Lottery Title", "Prize Amount", "Draw Date", "Status", "CreatedAt", "Ticket Price");
+                    System.out.printf("%-10s %-20s %-15s %-15s %-25s %-25s %-25s%n", "S.N", "Lottery Title", "Prize Amount", "Draw Date", "Status", "CreatedAt", "Ticket Price");
                     System.out.println("**************************************************************************************************************************");
-
+                    int count = 1;
                     for (Lottery lottery_scheme : lottery) {
                         System.out.printf("%-10d %-20s %-15s %-15s %-25s %-25s %-25s%n",
-                                lottery_scheme.getId(),
+                                count,
                                 lottery_scheme.getLottery_name(),
                                 lottery_scheme.getPrize_amount(),
                                 lottery_scheme.getDraw_date(),
                                 lottery_scheme.getStatus(),
                                 lottery_scheme.getCreatedAt(),
                                 lottery_scheme.getTicket_price());
+                        count++;
                     }
 
-                    System.out.println("Enter the Lottery Number You Want to Buy:");
+                    System.out.println("Choose the Lottery no. you want to buy:");
                     int lottery_number = sc.nextInt();
-                    
-                    
+
+                    Long lottery_id = lottery.get(lottery_number).getId() - 1;
+                    double lottery_price = lottery.get(lottery_number).getTicket_price();
+
+                    Long wallet_id = wc.getWalletIdByUserId(userId);
+
+                    lt.lottery_id = lottery_id;
+                    lt.userId = userId;
+
+                    tc.amount = lottery_price;
+                    tc.status = "Completed";
+                    tc.transactionType = "Buy Lottery Ticket";
+                    tc.walletId = wallet_id;
+
+                    if (lt.buyLotteryTicket(lt)) {
+                        tc.addTransaction(tc);
+                        System.out.println("Successfully ticket Purchased");
+
+                    }
 
                     break;
 
                 case 5:
+                    List<LotteryTicket> lotteryTickets = lt.getTicketsByUserId(userId);
+                    System.out.println("********************************************************************************");
+                    System.out.printf("%-10s %-20s %-15s %n", "S.N", "Lottery Title", "CreatedAt");
+                    System.out.println("********************************************************************************");
+                    int count_ticket = 1;
+                    for (LotteryTicket ticket : lotteryTickets) {
+                        System.out.printf("%-10d %-20s %-15s%n",
+                                count_ticket,
+                                ticket.getLotteryName(),
+                                ticket.getCreatedAt());
+                        count_ticket++;
+                    }
+
+                    break;
+
+                case 6:
+                    break;
+                case 7:
                     System.exit(0);
             }
         }

@@ -1,12 +1,13 @@
 package models;
 
 import jakarta.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 @Table(name="lotteryTickets")
 public class LotteryTicket extends BaseEntity{
     
-    @Column(name="lotteryId",unique = false, nullable=false)
+    @Column(name="lottery_id",unique = false, nullable=false)
     private Long lottery_id;
     
     @Column(name="userId",unique = false, nullable=false)
@@ -16,7 +17,10 @@ public class LotteryTicket extends BaseEntity{
     private int ticket_number;
     
     @Column(name="createdAt",unique = false, nullable=false)
-    private String createdAt;
+    private LocalDate createdAt;
+    
+    
+    private String lottery_name;
 
     public Long getLottery_id() {
         return lottery_id;
@@ -42,12 +46,16 @@ public class LotteryTicket extends BaseEntity{
         this.ticket_number = ticket_number;
     }
 
-    public String getCreatedAt() {
+    public LocalDate getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(String createdAt) {
+    public void setCreatedAt(LocalDate createdAt) {
         this.createdAt = createdAt;
+    }
+    
+    public String getLotteryName(){
+        return lottery_name;
     }
 
     

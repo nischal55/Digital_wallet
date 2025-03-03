@@ -20,12 +20,12 @@ public class LotteryController {
     public double prize_amount;
     public LocalDate drawDate;
     public String status;
-    public String createdAt;
+    public LocalDate createdAt;
     public double ticketPrice;
     LotteryDAO ld = new LotteryDaoImpl();
     
     public LotteryController(){
-        this.createdAt = LocalDateTime.now().toString();
+        this.createdAt = LocalDate.now();
     }
     
     public boolean saveLottery(LotteryController lc){

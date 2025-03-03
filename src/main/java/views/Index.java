@@ -35,7 +35,7 @@ public class Index {
                break;
             case 3:
                 System.out.println("Thank for Using our Digital Wallet");
-                System.exit(1);
+                System.exit(0);
                 break;
         }
         }

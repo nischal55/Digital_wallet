@@ -22,8 +22,8 @@ public class Lottery extends BaseEntity{
     @Column(name="status",unique = false, nullable=false)
     private String status;
     
-    @Column(name="createdAt",unique = false, nullable=false)
-    private String createdAt;
+    @Column(name="createdAt",unique = false, nullable=true)
+    private LocalDate createdAt;
 
     public String getLottery_name() {
         return lottery_name;
@@ -65,11 +65,11 @@ public class Lottery extends BaseEntity{
         this.status = status;
     }
 
-    public String getCreatedAt() {
+    public LocalDate getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(String createdAt) {
+    public void setCreatedAt(LocalDate createdAt) {
         this.createdAt = createdAt;
     }
 
