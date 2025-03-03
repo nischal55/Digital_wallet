@@ -18,7 +18,7 @@ public class User extends BaseEntity{
     private String contact;
     
     @Column(name="fullName", unique=false, nullable=false)
-    private String full_name;
+    private String fullName;
     
     @Column(name="user_type", unique=false, nullable=false)
     private String userType;
@@ -57,12 +57,12 @@ public class User extends BaseEntity{
         this.contact = contact;
     }
 
-    public String getFull_name() {
-        return full_name;
+    public String getFullName() {
+        return fullName;
     }
 
-    public void setFull_name(String full_name) {
-        this.full_name = full_name;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public String getUserType() {

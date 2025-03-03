@@ -8,16 +8,16 @@ import java.time.LocalDate;
 public class Lottery extends BaseEntity{
     
     @Column(name="lottery_name",unique = false, nullable=false)
-    private String lottery_name;
+    private String lotteryName;
     
     @Column(name="ticket_price",unique = false, nullable=false)
-    private double ticket_price;
+    private double ticketPrice;
     
     @Column(name="prize_amount",unique = false, nullable=false)
-    private double prize_amount;
+    private double prizeAmount;
     
     @Column(name="draw_date",unique = false, nullable=false)
-    private LocalDate draw_date;
+    private LocalDate drawDate;
     
     @Column(name="status",unique = false, nullable=false)
     private String status;
@@ -25,36 +25,36 @@ public class Lottery extends BaseEntity{
     @Column(name="createdAt",unique = false, nullable=true)
     private LocalDate createdAt;
 
-    public String getLottery_name() {
-        return lottery_name;
+    public String getLotteryName() {
+        return lotteryName;
     }
 
-    public void setLottery_name(String lottery_name) {
-        this.lottery_name = lottery_name;
+    public void setLotteryName(String lotteryName) {
+        this.lotteryName = lotteryName;
     }
 
-    public double getTicket_price() {
-        return ticket_price;
+    public double getTicketPrice() {
+        return ticketPrice;
     }
 
-    public void setTicket_price(double ticket_price) {
-        this.ticket_price = ticket_price;
+    public void setTicketPrice(double ticketPrice) {
+        this.ticketPrice = ticketPrice;
     }
 
-    public double getPrize_amount() {
-        return prize_amount;
+    public double getPrizeAmount() {
+        return prizeAmount;
     }
 
-    public void setPrize_amount(double prize_amount) {
-        this.prize_amount = prize_amount;
+    public void setPrizeAmount(double prizeAmount) {
+        this.prizeAmount = prizeAmount;
     }
 
-    public LocalDate getDraw_date() {
-        return draw_date;
+    public LocalDate getDrawDate() {
+        return drawDate;
     }
 
-    public void setDraw_date(LocalDate draw_date) {
-        this.draw_date = draw_date;
+    public void setDrawDate(LocalDate drawDate) {
+        this.drawDate = drawDate;
     }
 
     public String getStatus() {

@@ -39,4 +39,9 @@ public class TransactionController {
         List<Transaction> transactions = td.findAll();
         return transactions;
     }
+    
+     public List<Transaction> getTransactionByWalletId(Long wallet_id){
+        List<Transaction> transactions = td.getTransactionByWalletId(wallet_id);
+        return transactions;
+    }
 }

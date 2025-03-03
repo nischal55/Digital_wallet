@@ -55,4 +55,6 @@ public class WalletDaoImpl extends BaseDaoImpl<Wallet, Long> implements WalletDA
 
         return status;
     }
+    
+
 }

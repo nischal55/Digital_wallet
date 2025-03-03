@@ -13,6 +13,7 @@ import java.util.Scanner;
 import models.User;
 import models.Transaction;
 import models.Lottery;
+import controllers.LotteryTicketController;
 
 /**
  *
@@ -25,6 +26,7 @@ public class AdminDashboard {
     UserController uc = new UserController();
     TransactionController tc = new TransactionController();
     LotteryController lc = new LotteryController();
+    LotteryTicketController lt = new LotteryTicketController();
 
     void showDashboard() {
         while (true) {
@@ -54,7 +56,7 @@ public class AdminDashboard {
                     for (User user : users) {
                         System.out.printf("%-10d %-20s %-15s %-15s %-10s %-25s%n",
                                 user.getId(),
-                                user.getFull_name(),
+                                user.getFullName(),
                                 user.getUsername(),
                                 user.getContact(),
                                 user.getEmail(),
@@ -93,12 +95,12 @@ public class AdminDashboard {
                     for (Lottery lottery_scheme : lottery) {
                         System.out.printf("%-10d %-20s %-15s %-15s %-25s %-25s %-25s%n",
                                 lottery_scheme.getId(),
-                                lottery_scheme.getLottery_name(),
-                                lottery_scheme.getPrize_amount(),
-                                lottery_scheme.getDraw_date(),
+                                lottery_scheme.getLotteryName(),
+                                lottery_scheme.getPrizeAmount(),
+                                lottery_scheme.getDrawDate(),
                                 lottery_scheme.getStatus(),
                                 lottery_scheme.getCreatedAt(),
-                                lottery_scheme.getTicket_price());
+                                lottery_scheme.getTicketPrice());
                     }
                     break;
                 case 4:
@@ -136,6 +138,22 @@ public class AdminDashboard {
 
                     break;
                 case 5:
+                    
+                    System.out.println("**************************************************************************************************************************");
+                    System.out.printf("%-10s %-20s %-15s %-25s%n", "S.N","Username", "Lottery Title", "Ticket Number");
+                    System.out.println("**************************************************************************************************************************");
+                    
+                     List<Object[]> lotteryTickets = lt.getAllTickets();
+                     int count_ticket = 1;
+                     for(Object[] lotteryTicket : lotteryTickets){
+                          System.out.printf("%-10d %-20s %-15s %-10s%n",
+                                  count_ticket,
+                                  lotteryTicket[1],
+                                  lotteryTicket[2],
+                                  lotteryTicket[0]);
+                                  
+                     }
+                    
                     break;
                 case 6:
                     System.exit(0);

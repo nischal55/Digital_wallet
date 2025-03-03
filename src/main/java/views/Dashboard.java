@@ -11,7 +11,9 @@ import java.util.Scanner;
 import models.Lottery;
 import controllers.LotteryController;
 import controllers.LotteryTicketController;
+import java.time.LocalDate;
 import models.LotteryTicket;
+import models.Transaction;
 
 /**
  *
@@ -73,6 +75,7 @@ public class Dashboard {
 
                     break;
                 case 3:
+                    Long wa_id = wc.getWalletIdByUserId(userId);
                     System.out.println("******************");
                     System.out.println("Enter the Balance you want to transfer:");
                     double transfer_amount = sc.nextDouble();
@@ -82,6 +85,13 @@ public class Dashboard {
                     String contact_no = sc.nextLine();
 
                     if (wc.balanceTransfer(userId, contact_no, transfer_amount)) {
+                        tc.amount = transfer_amount;
+                        tc.status = "Completed";
+                        tc.transactionType = "Balance_transf";
+                        tc.walletId = wa_id;
+
+                        tc.addTransaction(tc);
+
                         System.out.println("Successfully Transfered balance");
                         break;
                     }
@@ -100,12 +110,12 @@ public class Dashboard {
                     for (Lottery lottery_scheme : lottery) {
                         System.out.printf("%-10d %-20s %-15s %-15s %-25s %-25s %-25s%n",
                                 count,
-                                lottery_scheme.getLottery_name(),
-                                lottery_scheme.getPrize_amount(),
-                                lottery_scheme.getDraw_date(),
+                                lottery_scheme.getLotteryName(),
+                                lottery_scheme.getPrizeAmount(),
+                                lottery_scheme.getDrawDate(),
                                 lottery_scheme.getStatus(),
                                 lottery_scheme.getCreatedAt(),
-                                lottery_scheme.getTicket_price());
+                                lottery_scheme.getTicketPrice());
                         count++;
                     }
 
@@ -113,7 +123,7 @@ public class Dashboard {
                     int lottery_number = sc.nextInt();
 
                     Long lottery_id = lottery.get(lottery_number).getId() - 1;
-                    double lottery_price = lottery.get(lottery_number).getTicket_price();
+                    double lottery_price = lottery.get(lottery_number).getTicketPrice();
 
                     Long wallet_id = wc.getWalletIdByUserId(userId);
 
@@ -127,29 +137,52 @@ public class Dashboard {
 
                     if (lt.buyLotteryTicket(lt)) {
                         tc.addTransaction(tc);
-                        System.out.println("Successfully ticket Purchased");
+                        if (wc.deduct_balance(userId, lottery_price)) {
+                            System.out.println("Successfully ticket Purchased");
+                        } else {
+                            System.out.println("Balance Not Deducted");
+                        }
 
                     }
 
                     break;
 
                 case 5:
-                    List<LotteryTicket> lotteryTickets = lt.getTicketsByUserId(userId);
+                    List<Object[]> lotteryTickets = lt.getTicketsByUserId(userId);
                     System.out.println("********************************************************************************");
-                    System.out.printf("%-10s %-20s %-15s %n", "S.N", "Lottery Title", "CreatedAt");
+                    System.out.printf("%-10s %-20s %-15s %n", "S.N", "Lottery Title", "Draw Date");
                     System.out.println("********************************************************************************");
                     int count_ticket = 1;
-                    for (LotteryTicket ticket : lotteryTickets) {
+                    for (Object[] ticket : lotteryTickets) {
                         System.out.printf("%-10d %-20s %-15s%n",
                                 count_ticket,
-                                ticket.getLotteryName(),
-                                ticket.getCreatedAt());
+                                ticket[1].toString(),
+                                ticket[2]);
                         count_ticket++;
                     }
 
                     break;
 
                 case 6:
+                    Long w_id = wc.getWalletIdByUserId(userId);
+                    List<Transaction> transactions = tc.getTransactionByWalletId(w_id);
+
+                    System.out.println("*********************");
+                    System.out.println("Transaction Report");
+                    System.out.println("*********************");
+
+                    System.out.println("*********************************************************************************************************");
+                    System.out.printf("%-10s %-20s %-15s %-25s %-10s%n", "TransactionID", "Transaction Type", "Amount", "Status", "Time Stamp");
+                    System.out.println("*********************************************************************************************************");
+                    for (Transaction transaction : transactions) {
+                        System.out.printf("%-10d %-20s %-15s %-25s %-10s%n",
+                                transaction.getId(),
+                                transaction.getTransactionType(),
+                                transaction.getAmount(),
+                                transaction.getStatus(),
+                                transaction.getTimeStamp());
+                    }
+
                     break;
                 case 7:
                     System.exit(0);

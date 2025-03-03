@@ -23,7 +23,7 @@ public class UserController{
         user.setUsername(uc.username);
         user.setEmail(uc.email);
         user.setContact(uc.contact);
-        user.setFull_name(uc.fullName);
+        user.setFullName(uc.fullName);
         user.setUserType(uc.userType);
         user.setPassword(uc.password);
         boolean status = false;

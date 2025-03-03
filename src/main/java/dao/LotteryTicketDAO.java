@@ -18,6 +18,7 @@ public interface LotteryTicketDAO {
     LotteryTicket findById(Long id);
     List<LotteryTicket> findAll();
     int getLatestLotteryTicket();
-    List<LotteryTicket> getTicketByUserId(Long id);
+    List<Object[]> getTicketByUserId(Long id);
+    List<Object[]> getAllTickets();
     
 }

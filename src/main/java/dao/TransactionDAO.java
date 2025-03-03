@@ -17,5 +17,6 @@ public interface TransactionDAO {
     List<Transaction> findAll();
     boolean update(Transaction transaction);
     boolean deleteById(Long id); 
+    List<Transaction> getTransactionByWalletId(Long walletId);
     
 }

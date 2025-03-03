@@ -62,4 +62,16 @@ public class WalletController {
         return status;
     }
     
+    public boolean deduct_balance(Long userId,double deduct_balance){
+        boolean status = false;
+        Wallet wallet = wd.getWalletByUserId(userId);
+        double balance = wallet.getBalance()-deduct_balance;
+        wallet.setBalance(balance);
+        
+        if(wd.update(wallet)){
+            status= true;
+        }
+        
+        return status;
+    }
 }

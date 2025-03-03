@@ -29,10 +29,10 @@ public class LotteryTicketController {
         
         int latest_ticket_no = ld.getLatestLotteryTicket()+1;
         LotteryTicket lt = new LotteryTicket();
-        lt.setLottery_id(lc.lottery_id);
-        lt.setTicket_number(latest_ticket_no);
+        lt.setLotteryId(lc.lottery_id);
+        lt.setTicketNumber(latest_ticket_no);
         lt.setCreatedAt(createdAt);
-        lt.setUser_id(lc.userId);
+        lt.setUserId(lc.userId);
         if(ld.save(lt)){
             status = true;
         }
@@ -41,10 +41,15 @@ public class LotteryTicketController {
         return status;
     }
     
-    public List<LotteryTicket> getTicketsByUserId(Long userId){
-        List<LotteryTicket> lotteryTickets = ld.getTicketByUserId(userId);
+    public List<Object[]> getTicketsByUserId(Long userId){
+        List<Object[]> lotteryTickets = ld.getTicketByUserId(userId);
         
         return lotteryTickets;
+    }
+    
+    public List<Object[]> getAllTickets(){
+        List<Object[]> tickets = ld.getAllTickets();
+        return tickets;
     }
     
     

@@ -31,12 +31,12 @@ public class LotteryController {
     public boolean saveLottery(LotteryController lc){
         Lottery lottery = new Lottery();
         boolean status = false;
-        lottery.setLottery_name(lc.lotterName);
-        lottery.setPrize_amount(lc.prize_amount);
-        lottery.setDraw_date(lc.drawDate);
+        lottery.setLotteryName(lc.lotterName);
+        lottery.setPrizeAmount(lc.prize_amount);
+        lottery.setDrawDate(lc.drawDate);
         lottery.setStatus("Opened");
         lottery.setCreatedAt(createdAt);
-        lottery.setTicket_price(lc.ticketPrice);
+        lottery.setTicketPrice(lc.ticketPrice);
         
         if(ld.save(lottery)){
             status= true;

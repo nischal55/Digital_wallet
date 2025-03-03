@@ -27,7 +27,7 @@ public class LotteryTicketDaoImpl extends BaseDaoImpl<LotteryTicket, Long> imple
         int ticketNumber = 0;
         try {
             TypedQuery<Integer> query = em.createQuery(
-                    "SELECT w.ticketNumber FROM lotteryTickets w  ORDER BY w.ticketDate DESC ",
+                    "SELECT w.ticket_number FROM LotteryTicket w  ORDER BY w.id DESC ",
                     Integer.class
             );
             query.setMaxResults(1);  
@@ -42,12 +42,27 @@ public class LotteryTicketDaoImpl extends BaseDaoImpl<LotteryTicket, Long> imple
     }
     
     @Override
-    public List<LotteryTicket> getTicketByUserId(Long userId){
-        List<LotteryTicket> tickets = null;
+    public List<Object[]> getTicketByUserId(Long userId){
+        List<Object[]> tickets = null;
         try {
-            String sql = "SELECT w.ticket_number,u.lottery_name,u.draw_date,w.lottery_id,u.id, w.userId, w.createdAt FROM lotteryTickets w JOIN lottery u ON w.lottery_id = u.id WHERE w.userId = ?";
-            Query query = em.createNativeQuery(sql, LotteryTicket.class);
+            String sql = "SELECT w.ticket_number,u.lottery_name,u.draw_date,w.lottery_id,u.id, w.userId, w.createdAt FROM lottery_ticket w JOIN lottery u ON w.lottery_id = u.id WHERE w.userId = ?";
+            Query query = em.createNativeQuery(sql);
             query.setParameter(1, userId);
+            tickets = query.getResultList();
+            return tickets;
+
+        } catch (Exception e) {
+
+            return tickets;
+        }
+    }
+    
+    @Override
+    public List<Object[]> getAllTickets(){
+        List<Object[]> tickets = null;
+        try {
+            String sql = "SELECT w.ticket_number,users.username,u.lottery_name,w.lottery_id,u.id, w.userId,users.id FROM lottery_ticket w JOIN lottery u ON w.lottery_id = u.id  join users on w.userId = users.id";
+            Query query = em.createNativeQuery(sql);
             tickets = query.getResultList();
             return tickets;
 

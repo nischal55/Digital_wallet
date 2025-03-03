@@ -4,46 +4,43 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-@Table(name="lotteryTickets")
+@Table(name="lottery_ticket")
 public class LotteryTicket extends BaseEntity{
     
     @Column(name="lottery_id",unique = false, nullable=false)
-    private Long lottery_id;
+    private Long lotteryId;
     
     @Column(name="userId",unique = false, nullable=false)
-    private Long user_id;
+    private Long userId;
     
-    @Column(name="ticket_number",unique = false, nullable=false)
-    private int ticket_number;
+    @Column(name="ticket_number",unique = true, nullable=false)
+    private int ticketNumber;
     
     @Column(name="createdAt",unique = false, nullable=false)
     private LocalDate createdAt;
-    
-    
-    private String lottery_name;
 
-    public Long getLottery_id() {
-        return lottery_id;
+    public Long getLotteryId() {
+        return lotteryId;
     }
 
-    public void setLottery_id(Long lottery_id) {
-        this.lottery_id = lottery_id;
+    public void setLotteryId(Long lotteryId) {
+        this.lotteryId = lotteryId;
     }
 
-    public Long getUser_id() {
-        return user_id;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setUser_id(Long user_id) {
-        this.user_id = user_id;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
-    public int getTicket_number() {
-        return ticket_number;
+    public int getTicketNumber() {
+        return ticketNumber;
     }
 
-    public void setTicket_number(int ticket_number) {
-        this.ticket_number = ticket_number;
+    public void setTicketNumber(int ticketNumber) {
+        this.ticketNumber = ticketNumber;
     }
 
     public LocalDate getCreatedAt() {
@@ -54,9 +51,7 @@ public class LotteryTicket extends BaseEntity{
         this.createdAt = createdAt;
     }
     
-    public String getLotteryName(){
-        return lottery_name;
-    }
+
 
     
    
