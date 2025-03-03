@@ -22,7 +22,7 @@ public class Lottery extends BaseEntity{
     @Column(name="status",unique = false, nullable=false)
     private String status;
     
-    @Column(name="createdAt",unique = false, nullable=true)
+    @Column(name="created_at",unique = false, nullable=true)
     private LocalDate createdAt;
 
     public String getLotteryName() {

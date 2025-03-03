@@ -7,32 +7,34 @@ import java.time.LocalDate;
 @Table(name="lottery_ticket")
 public class LotteryTicket extends BaseEntity{
     
-    @Column(name="lottery_id",unique = false, nullable=false)
-    private Long lotteryId;
+    @ManyToOne
+    @JoinColumn(name="lottery_id", nullable=false)
+    private Lottery lottery;
     
-    @Column(name="userId",unique = false, nullable=false)
-    private Long userId;
+    @ManyToOne
+    @JoinColumn(name="user_id", nullable=false)
+    private User user;
     
     @Column(name="ticket_number",unique = true, nullable=false)
     private int ticketNumber;
     
-    @Column(name="createdAt",unique = false, nullable=false)
+    @Column(name="created_at",unique = false, nullable=false)
     private LocalDate createdAt;
 
-    public Long getLotteryId() {
-        return lotteryId;
+    public Lottery getLottery() {
+        return lottery;
     }
 
-    public void setLotteryId(Long lotteryId) {
-        this.lotteryId = lotteryId;
+    public void setLottery(Lottery lottery) {
+        this.lottery = lottery;
     }
 
-    public Long getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public int getTicketNumber() {
@@ -50,7 +52,7 @@ public class LotteryTicket extends BaseEntity{
     public void setCreatedAt(LocalDate createdAt) {
         this.createdAt = createdAt;
     }
-    
+
 
 
     

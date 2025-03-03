@@ -78,7 +78,7 @@ public class AdminDashboard {
                                 transaction.getTransactionType(),
                                 transaction.getAmount(),
                                 transaction.getStatus(),
-                                transaction.getWalletId(),
+                                transaction.getWallet().getId(),
                                 transaction.getTimeStamp());
                     }
                     break;

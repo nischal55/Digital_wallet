@@ -17,7 +17,7 @@ public class User extends BaseEntity{
     @Column(name="contact", unique=true, nullable=false)
     private String contact;
     
-    @Column(name="fullName", unique=false, nullable=false)
+    @Column(name="full_name", unique=false, nullable=false)
     private String fullName;
     
     @Column(name="user_type", unique=false, nullable=false)

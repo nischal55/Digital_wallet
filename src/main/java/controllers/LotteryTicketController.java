@@ -3,11 +3,17 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package controllers;
+import dao.LotteryDAO;
 import models.LotteryTicket;
 import dao.impl.LotteryTicketDaoImpl;
 import dao.LotteryTicketDAO;
+import dao.UserDAO;
+import dao.impl.LotteryDaoImpl;
+import dao.impl.UserDaoImpl;
 import java.time.LocalDate;
 import java.util.List;
+import models.Lottery;
+import models.User;
 
 /**
  *
@@ -18,6 +24,11 @@ public class LotteryTicketController {
     public int ticket_no;
     public Long lottery_id;
     LotteryTicketDAO ld = new LotteryTicketDaoImpl();
+    LotteryDAO lotteryDao = new LotteryDaoImpl();
+    UserDAO ud = new UserDaoImpl();
+ 
+    
+    
     public LocalDate createdAt;
     
     public LotteryTicketController(){
@@ -29,10 +40,14 @@ public class LotteryTicketController {
         
         int latest_ticket_no = ld.getLatestLotteryTicket()+1;
         LotteryTicket lt = new LotteryTicket();
-        lt.setLotteryId(lc.lottery_id);
+        
+        Lottery lottery = lotteryDao.findById(lc.lottery_id);
+        lt.setLottery(lottery);
         lt.setTicketNumber(latest_ticket_no);
         lt.setCreatedAt(createdAt);
-        lt.setUserId(lc.userId);
+        
+        User user = ud.findById(lc.userId);
+        lt.setUser(user);
         if(ld.save(lt)){
             status = true;
         }

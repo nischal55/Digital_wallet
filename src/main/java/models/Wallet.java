@@ -5,19 +5,21 @@ import jakarta.persistence.*;
 @Entity
 @Table(name="wallet")
 public class Wallet extends BaseEntity{
-    @Column(name="userId",unique=true, nullable = false)
-    private Long userId;
-    
+    @OneToOne
+    @JoinColumn(name="user_id", nullable = false)
+    private User user;
+
     @Column(name="balance",unique = false, nullable = false)
     private double balance;
     
-    //getters and setters
-    public Long getUserId() {
-        return userId;
+    
+    
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public double getBalance() {
@@ -27,6 +29,5 @@ public class Wallet extends BaseEntity{
     public void setBalance(double balance) {
         this.balance = balance;
     }
-
-    
+  
 }

@@ -7,10 +7,11 @@ import java.time.LocalDateTime;
 @Table(name="transactions")
 public class Transaction extends BaseEntity{
     
-    @Column(name="walletId", unique = false, nullable = false)
-    private Long walletId;
+    @ManyToOne
+    @JoinColumn(name="wallet_id", nullable=false)
+    private Wallet wallet;
     
-    @Column(name="transactionType",unique = false, nullable=false)
+    @Column(name="transaction_type",unique = false, nullable=false)
     private String transactionType;
     
     @Column(name="amount",unique = false, nullable=false)
@@ -19,7 +20,7 @@ public class Transaction extends BaseEntity{
     @Column(name="status",unique = false, nullable=false)
     private String status;
 
-    @Column(name="timeStamp",unique = false, nullable=false)
+    @Column(name="time_stamp",unique = false, nullable=false)
     private LocalDateTime timeStamp;
     
     
@@ -28,15 +29,15 @@ public class Transaction extends BaseEntity{
     }
     
     //getters and setters
-    
-    public Long getWalletId() {
-        return walletId;
+
+    public Wallet getWallet() {
+        return wallet;
     }
 
-    public void setWalletId(Long walletId) {
-        this.walletId = walletId;
+    public void setWallet(Wallet wallet) {
+        this.wallet = wallet;
     }
-    
+
     public String getTransactionType() {
         return transactionType;
     }
@@ -61,10 +62,14 @@ public class Transaction extends BaseEntity{
         this.status = status;
     }
 
-    public LocalDateTime getTimeStamp(){
+    public LocalDateTime getTimeStamp() {
         return timeStamp;
     }
-    
+
+    public void setTimeStamp(LocalDateTime timeStamp) {
+        this.timeStamp = timeStamp;
+    }
+  
 
     
 

@@ -5,9 +5,12 @@
 package controllers;
 
 import dao.TransactionDAO;
+import dao.WalletDAO;
 import dao.impl.TransactionDaoImpl;
+import dao.impl.WalletDaoImpl;
 import java.util.List;
 import models.Transaction;
+import models.Wallet;
 /**
  *
  * @author nischal
@@ -20,13 +23,15 @@ public class TransactionController {
     public String timeStamp;
     
     TransactionDAO td = new TransactionDaoImpl();
+    WalletDAO wd = new WalletDaoImpl();
     
     public void addTransaction(TransactionController tc){
         Transaction transc = new Transaction();
         transc.setTransactionType(tc.transactionType);
         transc.setAmount(tc.amount);
         transc.setStatus(tc.status);
-        transc.setWalletId(tc.walletId);
+        Wallet wallet = wd.findById(tc.walletId);
+        transc.setWallet(wallet);
         
         if(td.save(transc)){
             System.out.println("Transaction saved Successfully");
