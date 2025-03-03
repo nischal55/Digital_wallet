@@ -1,6 +1,7 @@
 package models;
 
 import jakarta.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 @Table(name="lottery")
@@ -16,7 +17,7 @@ public class Lottery extends BaseEntity{
     private double prize_amount;
     
     @Column(name="draw_date",unique = false, nullable=false)
-    private String draw_date;
+    private LocalDate draw_date;
     
     @Column(name="status",unique = false, nullable=false)
     private String status;
@@ -48,11 +49,11 @@ public class Lottery extends BaseEntity{
         this.prize_amount = prize_amount;
     }
 
-    public String getDraw_date() {
+    public LocalDate getDraw_date() {
         return draw_date;
     }
 
-    public void setDraw_date(String draw_date) {
+    public void setDraw_date(LocalDate draw_date) {
         this.draw_date = draw_date;
     }
 

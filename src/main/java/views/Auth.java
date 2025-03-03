@@ -36,12 +36,16 @@ public class Auth {
                 Dashboard db = new Dashboard();
                 db.userId = userId;
                 db.showDashboard();
-            } else {
+            } else if(userType.equalsIgnoreCase("admin")){
                 AdminDashboard ad = new AdminDashboard();
                 ad.userId = userId;
                 ad.showDashboard();
                
+            }else{
+                System.out.println("Invalid Credentials");
             }
+        }else{
+            System.out.println("Invalid Credentials");
         }
     }
 

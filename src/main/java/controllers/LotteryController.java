@@ -6,7 +6,9 @@ package controllers;
 
 import dao.LotteryDAO;
 import dao.impl.LotteryDaoImpl;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 import models.Lottery;
 
 /**
@@ -16,11 +18,10 @@ import models.Lottery;
 public class LotteryController {
     public String lotterName;
     public double prize_amount;
-    public String drawDate;
+    public LocalDate drawDate;
     public String status;
     public String createdAt;
     public double ticketPrice;
-    Lottery lottery = new Lottery();
     LotteryDAO ld = new LotteryDaoImpl();
     
     public LotteryController(){
@@ -28,6 +29,7 @@ public class LotteryController {
     }
     
     public boolean saveLottery(LotteryController lc){
+        Lottery lottery = new Lottery();
         boolean status = false;
         lottery.setLottery_name(lc.lotterName);
         lottery.setPrize_amount(lc.prize_amount);
@@ -41,6 +43,13 @@ public class LotteryController {
         }
         
         return status;
+    }
+    
+    
+    public List<Lottery> getAllLottery(){
+        List<Lottery> lottery = ld.findAll();
+        
+        return lottery;
     }
     
 }
