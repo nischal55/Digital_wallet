@@ -15,6 +15,7 @@ import java.time.LocalDate;
 import models.LotteryTicket;
 import models.Transaction;
 
+
 /**
  *
  * @author nischal
@@ -27,6 +28,7 @@ public class Dashboard {
     TransactionController tc = new TransactionController();
     LotteryController lc = new LotteryController();
     LotteryTicketController lt = new LotteryTicketController();
+ 
 
     void showDashboard() {
         while (true) {
@@ -46,10 +48,12 @@ public class Dashboard {
 
             switch (option) {
                 case 1:
+                    //Check Use Balance
                     System.out.println("Balance: " + wc.getBalanceByUserId(userId));
                     break;
 
                 case 2:
+                    //Load Wallet Balance
                     System.out.println("Enter Amount to Load:");
                     double balance = sc.nextDouble();
                     if (balance < 1) {
@@ -60,6 +64,7 @@ public class Dashboard {
                     }
                     wc.balance = balance;
                     wc.userId = userId;
+
                     if (wc.loadBalance(wc)) {
                         Long walletId = wc.getWalletIdByUserId(userId);
                         tc.amount = balance;
@@ -75,10 +80,16 @@ public class Dashboard {
 
                     break;
                 case 3:
+                    //Transfer Balance to Another User
                     Long wa_id = wc.getWalletIdByUserId(userId);
                     System.out.println("******************");
                     System.out.println("Enter the Balance you want to transfer:");
                     double transfer_amount = sc.nextDouble();
+                    
+                    if(wc.getBalanceByUserId(userId)<transfer_amount){
+                        System.out.println("You donot have Enough Balance");
+                        break;
+                    }
 
                     sc.nextLine();
                     System.out.println("Enter the contact number you want to transfer balance to:");
@@ -94,10 +105,14 @@ public class Dashboard {
 
                         System.out.println("Successfully Transfered balance");
                         break;
+                    }else{
+                        System.out.println("Invalid User Contact no");
+                        break;
                     }
-                    break;
+                    
 
                 case 4:
+                    //Buy Lottery Tickets
                     List<Lottery> lottery = lc.getAllLottery();
                     System.out.println("*********************");
                     System.out.println("List of Users");
@@ -124,6 +139,11 @@ public class Dashboard {
 
                     Long lottery_id = lottery.get(lottery_number-1).getId();
                     double lottery_price = lottery.get(lottery_number-1).getTicketPrice();
+                    
+                     if(wc.getBalanceByUserId(userId)<lottery_price){
+                        System.out.println("You donot have Enough Balance");
+                        break;
+                    }
 
                     Long wallet_id = wc.getWalletIdByUserId(userId);
 
@@ -148,6 +168,7 @@ public class Dashboard {
                     break;
 
                 case 5:
+                    //Show the purchased Lottery Tickets
                     List<Object[]> lotteryTickets = lt.getTicketsByUserId(userId);
                     System.out.println("********************************************************************************");
                     System.out.printf("%-10s %-20s %-15s %n", "S.N", "Lottery Title", "Draw Date");
@@ -164,6 +185,7 @@ public class Dashboard {
                     break;
 
                 case 6:
+                    //show the transaction report
                     Long w_id = wc.getWalletIdByUserId(userId);
                     List<Transaction> transactions = tc.getTransactionByWalletId(w_id);
 

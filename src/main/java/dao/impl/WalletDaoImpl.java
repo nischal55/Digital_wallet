@@ -21,6 +21,7 @@ public class WalletDaoImpl extends BaseDaoImpl<Wallet, Long> implements WalletDA
     @Override
     public Wallet getWalletByUserId(Long id) {
         Wallet wallet = null;
+       
         try {
             TypedQuery<Wallet> query = em.createQuery("SELECT u FROM Wallet u WHERE u.user.id = :userId", Wallet.class);
             query.setParameter("userId", id);
