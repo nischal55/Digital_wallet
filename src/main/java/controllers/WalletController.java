@@ -45,16 +45,12 @@ public class WalletController {
 
         wallet.setUser(user);
 
-        if (wd.save(wallet)) {
-
-            if (wd.update(wallet)) {
-                status = true;
-            }
-
+        if (wd.update(wallet)) {
+            status = true;
         }
-            return status;
+
+        return status;
     }
-    
 
     public Long getWalletIdByUserId(Long id) {
         Long walletId = wd.getWalletByUserId(id).getId();

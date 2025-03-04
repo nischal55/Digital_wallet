@@ -48,6 +48,7 @@ public class LotteryTicketController {
         
         User user = ud.findById(lc.userId);
         lt.setUser(user);
+        
         if(ld.save(lt)){
             status = true;
         }

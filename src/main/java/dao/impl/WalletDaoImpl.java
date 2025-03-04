@@ -22,7 +22,7 @@ public class WalletDaoImpl extends BaseDaoImpl<Wallet, Long> implements WalletDA
     public Wallet getWalletByUserId(Long id) {
         Wallet wallet = null;
         try {
-            TypedQuery<Wallet> query = em.createQuery("SELECT u FROM Wallet u WHERE u.userId = :userId", Wallet.class);
+            TypedQuery<Wallet> query = em.createQuery("SELECT u FROM Wallet u WHERE u.user.id = :userId", Wallet.class);
             query.setParameter("userId", id);
             wallet = query.getSingleResult();
             return wallet;
@@ -36,10 +36,10 @@ public class WalletDaoImpl extends BaseDaoImpl<Wallet, Long> implements WalletDA
     @Override
     public boolean transferBalance(Long userId, String contact, double transfer_amount) {
         boolean status = false;
-        String sql = "SELECT w.* FROM wallet w JOIN users u ON w.userId = u.id WHERE u.contact = ?";
-        Query query = em.createNativeQuery(sql, Wallet.class);
-        query.setParameter(1, contact);
-        Wallet wallet_receiver = (Wallet) query.getSingleResult();
+        String jpql = "SELECT w FROM Wallet w JOIN w.user u WHERE u.contact = :contact";
+        TypedQuery<Wallet> query = em.createQuery(jpql, Wallet.class);
+        query.setParameter("contact", contact);
+        Wallet wallet_receiver = query.getSingleResult();
         double receiver_new_balance = wallet_receiver.getBalance() + transfer_amount;
         wallet_receiver.setBalance(receiver_new_balance);
 
@@ -55,6 +55,5 @@ public class WalletDaoImpl extends BaseDaoImpl<Wallet, Long> implements WalletDA
 
         return status;
     }
-    
 
 }

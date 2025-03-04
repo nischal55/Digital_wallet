@@ -122,8 +122,8 @@ public class Dashboard {
                     System.out.println("Choose the Lottery no. you want to buy:");
                     int lottery_number = sc.nextInt();
 
-                    Long lottery_id = lottery.get(lottery_number).getId() - 1;
-                    double lottery_price = lottery.get(lottery_number).getTicketPrice();
+                    Long lottery_id = lottery.get(lottery_number-1).getId();
+                    double lottery_price = lottery.get(lottery_number-1).getTicketPrice();
 
                     Long wallet_id = wc.getWalletIdByUserId(userId);
 

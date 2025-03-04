@@ -30,24 +30,26 @@ public class LotteryTicketDaoImpl extends BaseDaoImpl<LotteryTicket, Long> imple
                     "SELECT w.ticket_number FROM LotteryTicket w  ORDER BY w.id DESC ",
                     Integer.class
             );
-            query.setMaxResults(1);  
+            query.setMaxResults(1);
             ticketNumber = query.getSingleResult();
 
         } catch (Exception e) {
 
             return ticketNumber;
         }
-        
+
         return ticketNumber;
     }
-    
+
     @Override
-    public List<Object[]> getTicketByUserId(Long userId){
+    public List<Object[]> getTicketByUserId(Long userId) {
         List<Object[]> tickets = null;
         try {
-            String sql = "SELECT w.ticket_number,u.lottery_name,u.draw_date,w.lottery_id,u.id, w.userId, w.createdAt FROM lottery_ticket w JOIN lottery u ON w.lottery_id = u.id WHERE w.userId = ?";
-            Query query = em.createNativeQuery(sql);
-            query.setParameter(1, userId);
+            String jpql = "SELECT w.ticketNumber, w.lottery.lotteryName, w.lottery.drawDate, w.lottery.id, w.lottery.id, w.user.id, w.createdAt "
+                    + "FROM LotteryTicket w JOIN w.lottery  WHERE w.user.id = :userId";
+
+            Query query = em.createQuery(jpql);
+            query.setParameter("userId", userId);
             tickets = query.getResultList();
             return tickets;
 
@@ -56,16 +58,16 @@ public class LotteryTicketDaoImpl extends BaseDaoImpl<LotteryTicket, Long> imple
             return tickets;
         }
     }
-    
+
     @Override
-    public List<Object[]> getAllTickets(){
+    public List<Object[]> getAllTickets() {
         List<Object[]> tickets = null;
         try {
-            String sql = "SELECT w.ticket_number,users.username,u.lottery_name,w.lottery_id,u.id, w.userId,users.id FROM lottery_ticket w JOIN lottery u ON w.lottery_id = u.id  join users on w.userId = users.id";
-            Query query = em.createNativeQuery(sql);
-            tickets = query.getResultList();
-            return tickets;
+            String jpql = "SELECT w.ticketNumber, w.user.username, w.lottery.lotteryName, w.lottery.id, w.user.id FROM LotteryTicket w JOIN w.lottery JOIN w.user";
 
+            Query query = em.createQuery(jpql);
+            tickets = query.getResultList(); 
+            return tickets;
         } catch (Exception e) {
 
             return tickets;

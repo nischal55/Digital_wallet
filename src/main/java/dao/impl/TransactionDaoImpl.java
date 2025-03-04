@@ -26,7 +26,7 @@ public class TransactionDaoImpl extends BaseDaoImpl<Transaction, Long> implement
     @Override
     public List<Transaction> getTransactionByWalletId(Long walletId){
         List<Transaction> transactions = null;
-         TypedQuery<Transaction> query = em.createQuery("SELECT u FROM Transaction u WHERE u.walletId = :walletId", Transaction.class);
+         TypedQuery<Transaction> query = em.createQuery("SELECT u FROM Transaction u WHERE u.wallet.id = :walletId", Transaction.class);
             query.setParameter("walletId",walletId);
             transactions = query.getResultList();
             return transactions;
