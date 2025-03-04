@@ -6,6 +6,7 @@ package dao;
 
 import java.util.List;
 import models.LotteryTicket;
+import models.Lottery;
 
 /**
  *
@@ -22,6 +23,6 @@ public interface LotteryTicketDAO {
     List<Object[]> getAllTickets();
     int findLotteryResult(Long lotteryId);
     Long findUserIdByTicketNumber(int ticketNumber);
-    
+    Lottery findLotteryByTicket(int ticketNumber);
     
 }

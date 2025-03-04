@@ -9,6 +9,7 @@ import jakarta.persistence.*;
 import models.LotteryTicket;
 import java.util.List;
 import java.util.Random;
+import models.Lottery;
 
 /**
  *
@@ -112,5 +113,16 @@ public class LotteryTicketDaoImpl extends BaseDaoImpl<LotteryTicket, Long> imple
         return userId;
     }
     
+    @Override
+     public Lottery findLotteryByTicket(int ticketNumber){
+         Lottery lottery = null;
+         TypedQuery<Lottery> query = em.createQuery(
+                    "SELECT w.lottery FROM LotteryTicket w where ticketNumber=:ticketNumber",
+                    Lottery.class
+            );
+         query.setParameter("ticketNumber", ticketNumber);
+        lottery = query.getSingleResult();
+        return lottery;
+     }
    
 }

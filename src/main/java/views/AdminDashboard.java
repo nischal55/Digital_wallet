@@ -14,6 +14,7 @@ import models.User;
 import models.Transaction;
 import models.Lottery;
 import controllers.LotteryTicketController;
+import controllers.WalletController;
 
 /**
  *
@@ -27,6 +28,7 @@ public class AdminDashboard {
     TransactionController tc = new TransactionController();
     LotteryController lc = new LotteryController();
     LotteryTicketController lt = new LotteryTicketController();
+    WalletController wc = new WalletController();
 
     void showDashboard() {
         while (true) {
@@ -109,23 +111,22 @@ public class AdminDashboard {
                     System.out.println("Add Lottery Scheme");
                     System.out.println("*********************");
                     System.out.println("Enter Prize Amount:");
-                    double prize_amount = sc.nextDouble();  
-
-                    sc.nextLine();  
-
-                    System.out.println("Enter the lottery Name:");
-                    String lotteryName = sc.nextLine().trim();  
-                    
-                    System.out.println("Enter the draw date Format YYYY-MM-DD");
-                    String inputDate = sc.nextLine().trim(); 
-                    System.out.println(inputDate);
-                    LocalDate draw_date = LocalDate.parse(inputDate);  
-
-                    System.out.println("Enter Ticket Price");
-                    double ticket_price = sc.nextDouble();  
+                    double prize_amount = sc.nextDouble();
 
                     sc.nextLine();
 
+                    System.out.println("Enter the lottery Name:");
+                    String lotteryName = sc.nextLine().trim();
+
+                    System.out.println("Enter the draw date Format YYYY-MM-DD");
+                    String inputDate = sc.nextLine().trim();
+                    System.out.println(inputDate);
+                    LocalDate draw_date = LocalDate.parse(inputDate);
+
+                    System.out.println("Enter Ticket Price");
+                    double ticket_price = sc.nextDouble();
+
+                    sc.nextLine();
 
                     lc.lotterName = lotteryName;
                     lc.prize_amount = prize_amount;
@@ -139,35 +140,36 @@ public class AdminDashboard {
 
                     break;
                 case 5:
-                    
+
                     System.out.println("**************************************************************************************************************************");
-                    System.out.printf("%-10s %-20s %-15s %-25s%n", "S.N","Username", "Lottery Title", "Ticket Number");
+                    System.out.printf("%-10s %-20s %-15s %-25s%n", "S.N", "Username", "Lottery Title", "Ticket Number");
                     System.out.println("**************************************************************************************************************************");
-                    
-                     List<Object[]> lotteryTickets = lt.getAllTickets();
-                     int count_ticket = 1;
-                     for(Object[] lotteryTicket : lotteryTickets){
-                          System.out.printf("%-10d %-20s %-15s %-10s%n",
-                                  count_ticket,
-                                  lotteryTicket[1],
-                                  lotteryTicket[2],
-                                  lotteryTicket[0]);
-                                  
-                     }
-                    
+
+                    List<Object[]> lotteryTickets = lt.getAllTickets();
+                    int count_ticket = 1;
+                    for (Object[] lotteryTicket : lotteryTickets) {
+                        System.out.printf("%-10d %-20s %-15s %-10s%n",
+                                count_ticket,
+                                lotteryTicket[1],
+                                lotteryTicket[2],
+                                lotteryTicket[0]);
+
+                    }
+
                     break;
                 case 6:
                     List<Lottery> lottery_list = lc.getAllLottery();
                     System.out.println("*********************");
                     System.out.println("Choose Lottery Scheme");
                     System.out.println("*********************");
-                    
+
                     System.out.println("**************************************************************************************************************************");
                     System.out.printf("%-10s %-20s %-15s %-15s %-25s %-25s %-25s%n", "S.N", "Lottery Title", "Prize Amount", "Draw Date", "Status", "CreatedAt", "Ticket Price");
                     System.out.println("**************************************************************************************************************************");
                     int count = 1;
                     for (Lottery lottery_scheme : lottery_list) {
-                        System.out.printf("%-10d %-20s %-15s %-15s %-25s %-25s %-25s%n",
+                        if(lottery_scheme.getStatus().equalsIgnoreCase("Opened")){
+                            System.out.printf("%-10d %-20s %-15s %-15s %-25s %-25s %-25s%n",
                                 count,
                                 lottery_scheme.getLotteryName(),
                                 lottery_scheme.getPrizeAmount(),
@@ -176,20 +178,55 @@ public class AdminDashboard {
                                 lottery_scheme.getCreatedAt(),
                                 lottery_scheme.getTicketPrice());
                         count++;
+                        }
+                        
                     }
-                    
+
                     System.out.println("Enter the Lottery No. you want to generate result for:");
                     int lottery_number = sc.nextInt();
-                    Long lottery_id = lottery_list.get(lottery_number-1).getId();
                     
+                   
+                    Long lottery_id = lottery_list.get(lottery_number - 1).getId();
+
                     int result = lt.findLotteryResult(lottery_id);
-                    
+
                     System.out.println("Winner Ticket Number:" + result);
                     Long winner_user_id = lt.findUserIdByTicketNumber(result);
-                    
-                    System.out.println("Winner UserId: "+ winner_user_id);
 
-                    break;
+                    System.out.println("Winner UserId: " + winner_user_id);
+
+                    User user = uc.getUserById(winner_user_id);
+
+                    System.out.println("Winner Name: " + user.getFullName());
+                    System.out.println("Winner Contact: " + user.getContact());
+                    System.out.println("Winner Email: " + user.getEmail());
+
+                    Lottery lottery_scheme = lt.findLotteryByTicket(lottery_number);
+                    double winning_prize = lottery_scheme.getPrizeAmount();
+
+                    System.out.println("Are you sure to load prize to the winner:");
+                    System.out.println("1. Yes");
+                    System.out.println("2. No");
+                    int confirmation = sc.nextInt();
+
+                    if (confirmation == 1) {
+                        wc.balance = winning_prize;
+                        wc.userId = winner_user_id;
+                        if (wc.loadBalance(wc)) {
+                            tc.amount = winning_prize;
+                            tc.status="completed";
+                            tc.transactionType = "Wining prize transfer";
+                            tc.walletId = wc.getWalletIdByUserId(winner_user_id);
+                            tc.addTransaction(tc);
+                            lc.changeTicketStatus(lottery_scheme);
+                            System.out.println("Transfered Balance to winner");
+                            break;
+                        }
+                    } else {
+                        break;
+                    }
+
+
                 case 7:
                     System.exit(0);
                     break;

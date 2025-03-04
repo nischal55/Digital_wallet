@@ -15,6 +15,7 @@ import java.util.List;
 import models.Lottery;
 import models.User;
 
+
 /**
  *
  * @author nischal
@@ -26,7 +27,7 @@ public class LotteryTicketController {
     LotteryTicketDAO ld = new LotteryTicketDaoImpl();
     LotteryDAO lotteryDao = new LotteryDaoImpl();
     UserDAO ud = new UserDaoImpl();
- 
+    
     
     
     public LocalDate createdAt;
@@ -78,5 +79,11 @@ public class LotteryTicketController {
         return userId;
     }
     
+    public Lottery findLotteryByTicket(int ticketNumber){
+        Lottery lottery = ld.findLotteryByTicket(ticketNumber);
+        return lottery;
+    }
     
+    
+   
 }

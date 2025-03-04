@@ -59,4 +59,9 @@ public class UserController{
         List<User> users = userDAO.findAll();
         return users;
     }
+    
+    public User getUserById(Long userId){
+        User user = userDAO.findById(userId);
+        return user;
+    }
 }

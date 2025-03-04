@@ -10,6 +10,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import models.Lottery;
+import models.LotteryTicket;
 
 /**
  *
@@ -52,4 +53,11 @@ public class LotteryController {
         return lottery;
     }
     
+     public void changeTicketStatus(Lottery lc){
+        lc.setStatus("Closed");
+        
+        if(ld.update(lc)){
+            System.out.println("Ticket status changed to closed");
+        }
+    }
 }
