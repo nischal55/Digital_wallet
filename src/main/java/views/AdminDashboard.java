@@ -40,7 +40,8 @@ public class AdminDashboard {
             System.out.println("3. Show lottery Schemes");
             System.out.println("4. Add lottery Schemes");
             System.out.println("5. Show lottery Applicants");
-            System.out.println("6. Logout");
+            System.out.println("6. Generate lottery Result");
+            System.out.println("7. Logout");
             int option = sc.nextInt();
             switch (option) {
                 case 1:
@@ -156,6 +157,40 @@ public class AdminDashboard {
                     
                     break;
                 case 6:
+                    List<Lottery> lottery_list = lc.getAllLottery();
+                    System.out.println("*********************");
+                    System.out.println("Choose Lottery Scheme");
+                    System.out.println("*********************");
+                    
+                    System.out.println("**************************************************************************************************************************");
+                    System.out.printf("%-10s %-20s %-15s %-15s %-25s %-25s %-25s%n", "S.N", "Lottery Title", "Prize Amount", "Draw Date", "Status", "CreatedAt", "Ticket Price");
+                    System.out.println("**************************************************************************************************************************");
+                    int count = 1;
+                    for (Lottery lottery_scheme : lottery_list) {
+                        System.out.printf("%-10d %-20s %-15s %-15s %-25s %-25s %-25s%n",
+                                count,
+                                lottery_scheme.getLotteryName(),
+                                lottery_scheme.getPrizeAmount(),
+                                lottery_scheme.getDrawDate(),
+                                lottery_scheme.getStatus(),
+                                lottery_scheme.getCreatedAt(),
+                                lottery_scheme.getTicketPrice());
+                        count++;
+                    }
+                    
+                    System.out.println("Enter the Lottery No. you want to generate result for:");
+                    int lottery_number = sc.nextInt();
+                    Long lottery_id = lottery_list.get(lottery_number-1).getId();
+                    
+                    int result = lt.findLotteryResult(lottery_id);
+                    
+                    System.out.println("Winner Ticket Number:" + result);
+                    Long winner_user_id = lt.findUserIdByTicketNumber(result);
+                    
+                    System.out.println("Winner UserId: "+ winner_user_id);
+
+                    break;
+                case 7:
                     System.exit(0);
                     break;
             }

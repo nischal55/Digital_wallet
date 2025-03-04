@@ -68,5 +68,15 @@ public class LotteryTicketController {
         return tickets;
     }
     
+    public int findLotteryResult(Long lotteryId){
+        int result = ld.findLotteryResult(lotteryId);
+        return result;
+    }
+    
+    public Long findUserIdByTicketNumber(int ticketNumber){
+        Long userId = ld.findUserIdByTicketNumber(ticketNumber);
+        return userId;
+    }
+    
     
 }

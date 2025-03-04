@@ -8,6 +8,7 @@ import dao.LotteryTicketDAO;
 import jakarta.persistence.*;
 import models.LotteryTicket;
 import java.util.List;
+import java.util.Random;
 
 /**
  *
@@ -27,14 +28,14 @@ public class LotteryTicketDaoImpl extends BaseDaoImpl<LotteryTicket, Long> imple
         int ticketNumber = 0;
         try {
             TypedQuery<Integer> query = em.createQuery(
-                    "SELECT w.ticket_number FROM LotteryTicket w  ORDER BY w.id DESC ",
+                    "SELECT w.ticketNumber FROM LotteryTicket w  ORDER BY w.id DESC ",
                     Integer.class
             );
             query.setMaxResults(1);
             ticketNumber = query.getSingleResult();
 
         } catch (Exception e) {
-
+            e.printStackTrace();
             return ticketNumber;
         }
 
@@ -54,7 +55,7 @@ public class LotteryTicketDaoImpl extends BaseDaoImpl<LotteryTicket, Long> imple
             return tickets;
 
         } catch (Exception e) {
-
+            e.printStackTrace();
             return tickets;
         }
     }
@@ -66,12 +67,50 @@ public class LotteryTicketDaoImpl extends BaseDaoImpl<LotteryTicket, Long> imple
             String jpql = "SELECT w.ticketNumber, w.user.username, w.lottery.lotteryName, w.lottery.id, w.user.id FROM LotteryTicket w JOIN w.lottery JOIN w.user";
 
             Query query = em.createQuery(jpql);
-            tickets = query.getResultList(); 
+            tickets = query.getResultList();
             return tickets;
         } catch (Exception e) {
-
+            e.printStackTrace();
             return tickets;
         }
     }
 
+    @Override
+    public int findLotteryResult(Long lotteryId) {
+
+        String jpql = "SELECT w.ticketNumber from LotteryTicket w where w.lottery.id = : lotteryId";
+        Query query = em.createQuery(jpql);
+        query.setParameter("lotteryId", lotteryId);
+        List<Integer> tickets = query.getResultList();
+
+        int result = 0;
+        try {
+            
+            Random rand = new Random();
+
+            int randomIndex = rand.nextInt(tickets.size());
+
+            int randomNumber = tickets.get(randomIndex);
+            result = randomNumber;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    @Override
+    public Long findUserIdByTicketNumber(int ticketNumber) {
+        Long userId = null;
+        TypedQuery<Long> query = em.createQuery(
+                    "SELECT w.user.id FROM LotteryTicket w where ticketNumber=:ticketNumber",
+                    Long.class
+            );
+        query.setParameter("ticketNumber", ticketNumber);
+        userId = query.getSingleResult();
+        
+        return userId;
+    }
+    
+   
 }
