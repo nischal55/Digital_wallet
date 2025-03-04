@@ -9,7 +9,7 @@ import jakarta.persistence.*;
 import jakarta.persistence.Persistence;
 import models.Wallet;
 
-public class WalletDaoImpl extends BaseDaoImpl<Wallet, Long> implements WalletDAO {
+public class WalletDaoImpl extends BaseDaoImpl<Wallet> implements WalletDAO {
 
     public WalletDaoImpl() {
         super(Wallet.class);

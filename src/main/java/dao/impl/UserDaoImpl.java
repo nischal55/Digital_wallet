@@ -13,7 +13,7 @@ import org.mindrot.jbcrypt.BCrypt;
  *
  * @author nischal
  */
-public class UserDaoImpl extends BaseDaoImpl<User, Long> implements UserDAO {
+public class UserDaoImpl extends BaseDaoImpl<User> implements UserDAO {
 
     private final EntityManagerFactory emf = Persistence.createEntityManagerFactory("digital_wallet");
     private final EntityManager em = emf.createEntityManager();

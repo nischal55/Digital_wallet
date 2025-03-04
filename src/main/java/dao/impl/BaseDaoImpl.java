@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.List;
 
 
-public class BaseDaoImpl<T, ID extends Serializable> implements BaseDAO<T, ID>{
+public class BaseDaoImpl<T> implements BaseDAO<T>{
     
     private final Class<T> entityClass;
     private EntityManagerFactory emf = Persistence.createEntityManagerFactory("digital_wallet");
@@ -54,7 +54,7 @@ public class BaseDaoImpl<T, ID extends Serializable> implements BaseDAO<T, ID>{
     }
 
     @Override
-    public boolean deleteById(ID id) {
+    public boolean deleteById(Long id) {
         EntityTransaction transaction = em.getTransaction();
         boolean status = false;
         
@@ -77,7 +77,7 @@ public class BaseDaoImpl<T, ID extends Serializable> implements BaseDAO<T, ID>{
     }
 
     @Override
-    public T findById(ID id) {
+    public T findById(Long id) {
          try {
             return em.find(entityClass, id);
         } catch (Exception e) {

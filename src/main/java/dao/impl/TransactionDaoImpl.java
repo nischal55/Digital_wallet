@@ -13,7 +13,7 @@ import java.util.List;
  *
  * @author nischal
  */
-public class TransactionDaoImpl extends BaseDaoImpl<Transaction, Long> implements TransactionDAO{
+public class TransactionDaoImpl extends BaseDaoImpl<Transaction> implements TransactionDAO{
 
     public TransactionDaoImpl(){
         super(Transaction.class);

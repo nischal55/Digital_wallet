@@ -11,7 +11,7 @@ import models.Lottery;
  *
  * @author nischal
  */
-public class LotteryDaoImpl extends BaseDaoImpl<Lottery, Long> implements LotteryDAO{
+public class LotteryDaoImpl extends BaseDaoImpl<Lottery> implements LotteryDAO{
     
     public LotteryDaoImpl(){
         super(Lottery.class);
