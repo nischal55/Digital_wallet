@@ -57,7 +57,7 @@ public class LotteryTicketTest {
     }
 
     @Test
-    public void TestFindLotteryResult() {
+    public void testFindLotteryResult() {
         Long lotteryId = 1L;
         List<Integer> mockTickets = Arrays.asList(101, 102, 103, 104, 105);
 

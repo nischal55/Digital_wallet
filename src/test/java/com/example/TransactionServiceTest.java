@@ -29,7 +29,7 @@ public class TransactionServiceTest {
     }
     
     @Test
-    void addTransaction(){
+    void testAddTransaction(){
         double amount = 100;
         String status = "Completed";
         String transactionType = "load_balance";
