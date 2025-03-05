@@ -49,7 +49,7 @@ public class LotteryTicketController {
     }
     
     public int findLotteryResult(Long lotteryId){
-        int result = ld.findLotteryResult(lotteryId);
+        int result = service.findLotteryResult(lotteryId);
         return result;
     }
     

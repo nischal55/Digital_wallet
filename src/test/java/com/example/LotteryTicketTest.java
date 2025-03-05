@@ -12,6 +12,7 @@ import java.time.LocalDate;
 import models.User;
 import models.Lottery;
 import models.LotteryTicket;
+import java.util.*;
 
 /**
  *
@@ -33,25 +34,38 @@ public class LotteryTicketTest {
         mockLotteryTicketService = new LotteryTicketService(mockLotteryTicketDao, mockLotteryDao, mockUserDao);
 
     }
-    
+
     @Test
-    public void testBuyTicket(){
+    public void testBuyTicket() {
         Long userId = 1L;
         Long lotteryId = 1L;
         LocalDate createdAt = LocalDate.now();
-        
+
         Lottery lottery = new Lottery();
         lottery.setId(lotteryId);
         User user = new User();
         user.setId(userId);
-        
+
         when(mockLotteryDao.findById(lotteryId)).thenReturn(lottery);
         when(mockUserDao.findById(userId)).thenReturn(user);
         when(mockLotteryTicketDao.save(any(LotteryTicket.class))).thenReturn(true);
-        
+
         boolean result = mockLotteryTicketService.buyLotteryTicket(userId, lotteryId, createdAt);
-        
+
         assertTrue(result, "Ticket should be Purchased");
-  
+
+    }
+
+    @Test
+    public void TestFindLotteryResult() {
+        Long lotteryId = 1L;
+        List<Integer> mockTickets = Arrays.asList(101, 102, 103, 104, 105);
+
+        when(mockLotteryTicketDao.findLotteryTicketsByLotteryId(lotteryId)).thenReturn(mockTickets);
+
+        int result = mockLotteryTicketService.findLotteryResult(lotteryId);
+
+        assertTrue(mockTickets.contains(result), "The result should be one of the lottery ticket numbers");
+
     }
 }

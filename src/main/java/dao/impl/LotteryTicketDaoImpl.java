@@ -75,30 +75,17 @@ public class LotteryTicketDaoImpl extends BaseDaoImpl<LotteryTicket> implements 
             return tickets;
         }
     }
-
+    
     @Override
-    public int findLotteryResult(Long lotteryId) {
-
+    public List<Integer> findLotteryTicketsByLotteryId(Long lotteryId){
         String jpql = "SELECT w.ticketNumber from LotteryTicket w where w.lottery.id = : lotteryId";
         Query query = em.createQuery(jpql);
         query.setParameter("lotteryId", lotteryId);
         List<Integer> tickets = query.getResultList();
-
-        int result = 0;
-        try {
-            
-            Random rand = new Random();
-
-            int randomIndex = rand.nextInt(tickets.size());
-
-            int randomNumber = tickets.get(randomIndex);
-            result = randomNumber;
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return result;
+        
+        return tickets;
     }
+
 
     @Override
     public Long findUserIdByTicketNumber(int ticketNumber) {

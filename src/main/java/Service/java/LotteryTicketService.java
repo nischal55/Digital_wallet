@@ -8,6 +8,8 @@ import dao.LotteryDAO;
 import dao.LotteryTicketDAO;
 import dao.UserDAO;
 import java.time.LocalDate;
+import java.util.List;
+import java.util.Random;
 import models.Lottery;
 import models.LotteryTicket;
 import models.User;
@@ -49,6 +51,25 @@ public class LotteryTicketService {
         
         
         return status;
+    }
+     
+    public int findLotteryResult(Long lotteryId) {
+        List<Integer> tickets = ld.findLotteryTicketsByLotteryId(lotteryId);
+
+        int result = 0;
+        try {
+            
+            Random rand = new Random();
+
+            int randomIndex = rand.nextInt(tickets.size());
+
+            int randomNumber = tickets.get(randomIndex);
+            result = randomNumber;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
     }
     
 }
