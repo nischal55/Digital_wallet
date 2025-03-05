@@ -7,9 +7,6 @@ package Service.java;
 import dao.LotteryDAO;
 import dao.LotteryTicketDAO;
 import dao.UserDAO;
-import dao.impl.LotteryDaoImpl;
-import dao.impl.LotteryTicketDaoImpl;
-import dao.impl.UserDaoImpl;
 import java.time.LocalDate;
 import models.Lottery;
 import models.LotteryTicket;
@@ -21,9 +18,15 @@ import models.User;
  */
 public class LotteryTicketService {
     
-    LotteryTicketDAO ld = new LotteryTicketDaoImpl();
-    LotteryDAO lotteryDao = new LotteryDaoImpl();
-    UserDAO ud = new UserDaoImpl();
+    private LotteryTicketDAO ld;
+    private LotteryDAO lotteryDao;
+    private UserDAO ud;
+    
+    public LotteryTicketService(LotteryTicketDAO ld, LotteryDAO lotteryDAO,UserDAO ud){
+        this.ld = ld;
+        this.lotteryDao = lotteryDAO;
+        this.ud = ud;
+    }
     
     
      public boolean buyLotteryTicket(Long userId, Long lotteryId, LocalDate createdAt){

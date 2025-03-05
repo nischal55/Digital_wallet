@@ -4,8 +4,12 @@
  */
 package controllers;
 import Service.java.LotteryTicketService;
+import dao.LotteryDAO;
 import dao.impl.LotteryTicketDaoImpl;
 import dao.LotteryTicketDAO;
+import dao.UserDAO;
+import dao.impl.LotteryDaoImpl;
+import dao.impl.UserDaoImpl;
 import java.time.LocalDate;
 import java.util.List;
 import models.Lottery;
@@ -16,7 +20,10 @@ import models.Lottery;
  */
 public class LotteryTicketController {
     LotteryTicketDAO ld = new LotteryTicketDaoImpl();
-    LotteryTicketService service = new LotteryTicketService();
+    
+    LotteryDAO lotteryDao = new LotteryDaoImpl();
+    UserDAO ud = new UserDaoImpl();
+    LotteryTicketService service = new LotteryTicketService(ld,lotteryDao,ud);
     
     
     
