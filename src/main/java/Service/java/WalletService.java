@@ -16,8 +16,16 @@ import models.Wallet;
  * @author nischal
  */
 public class WalletService {
-    WalletDAO wd = new WalletDaoImpl();
-    UserDAO ud = new UserDaoImpl();
+    
+    private WalletDAO wd;
+    private UserDAO ud;
+    
+    public WalletService(WalletDAO wd, UserDAO ud) {
+        this.wd = wd;
+        this.ud = ud;
+    }
+     
+    
     
     public double getBalanceByUserId(Long id) {
         double balance = wd.getWalletByUserId(id).getBalance();
@@ -42,11 +50,19 @@ public class WalletService {
     }
     
     public boolean balanceTransfer(Long userId, String contact, double transferAmount) {
-        boolean status = false;
-        System.out.println("contact" + contact);
-        System.out.println("Balance:" + transferAmount);
-        if (wd.transferBalance(userId, contact, transferAmount)) {
-            status = true;
+         boolean status = false;
+        Wallet wallet_receiver = wd.getWalletByContact(contact);
+        double receiver_new_balance = wallet_receiver.getBalance() + transferAmount;
+        wallet_receiver.setBalance(receiver_new_balance);
+
+        Wallet wallet_sender = wd.getWalletByUserId(userId);
+        double sender_new_balance = wallet_sender.getBalance() - transferAmount;
+        wallet_sender.setBalance(sender_new_balance);
+
+        if (wd.update(wallet_receiver)) {
+            if (wd.update(wallet_sender)) {
+                status = true;
+            }
         }
 
         return status;

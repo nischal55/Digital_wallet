@@ -12,7 +12,7 @@ public class WalletController {
 
     WalletDAO wd = new WalletDaoImpl();
     UserDAO ud = new UserDaoImpl();
-    WalletService service = new WalletService();
+    WalletService service = new WalletService(wd,ud);
 
     public boolean createWallet(Long userId) {
         boolean status = false;

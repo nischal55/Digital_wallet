@@ -33,28 +33,15 @@ public class WalletDaoImpl extends BaseDaoImpl<Wallet> implements WalletDAO {
             return wallet;
         }
     }
-
+    
     @Override
-    public boolean transferBalance(Long userId, String contact, double transfer_amount) {
-        boolean status = false;
+    public Wallet getWalletByContact(String contact){
         String jpql = "SELECT w FROM Wallet w JOIN w.user u WHERE u.contact = :contact";
         TypedQuery<Wallet> query = em.createQuery(jpql, Wallet.class);
         query.setParameter("contact", contact);
         Wallet wallet_receiver = query.getSingleResult();
-        double receiver_new_balance = wallet_receiver.getBalance() + transfer_amount;
-        wallet_receiver.setBalance(receiver_new_balance);
-
-        Wallet wallet_sender = getWalletByUserId(userId);
-        double sender_new_balance = wallet_sender.getBalance() - transfer_amount;
-        wallet_sender.setBalance(sender_new_balance);
-
-        if (update(wallet_receiver)) {
-            if (update(wallet_sender)) {
-                status = true;
-            }
-        }
-
-        return status;
+        
+        return wallet_receiver;
     }
 
 }
