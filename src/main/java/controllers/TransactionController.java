@@ -16,21 +16,16 @@ import models.Wallet;
  * @author nischal
  */
 public class TransactionController {
-    public String transactionType;
-    public double amount;
-    public String status;
-    public Long walletId;
-    public String timeStamp;
     
     TransactionDAO td = new TransactionDaoImpl();
     WalletDAO wd = new WalletDaoImpl();
     
-    public void addTransaction(TransactionController tc){
+    public void addTransaction(double amount,String status, String transactionType,Long walletId){
         Transaction transc = new Transaction();
-        transc.setTransactionType(tc.transactionType);
-        transc.setAmount(tc.amount);
-        transc.setStatus(tc.status);
-        Wallet wallet = wd.findById(tc.walletId);
+        transc.setTransactionType(transactionType);
+        transc.setAmount(amount);
+        transc.setStatus(status);
+        Wallet wallet = wd.findById(walletId);
         transc.setWallet(wallet);
         
         if(td.save(transc)){

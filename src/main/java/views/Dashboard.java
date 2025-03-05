@@ -11,8 +11,6 @@ import java.util.Scanner;
 import models.Lottery;
 import controllers.LotteryController;
 import controllers.LotteryTicketController;
-import java.time.LocalDate;
-import models.LotteryTicket;
 import models.Transaction;
 
 
@@ -65,11 +63,7 @@ public class Dashboard {
 
                     if (wc.loadBalance(balance,userId)) {
                         Long walletId = wc.getWalletIdByUserId(userId);
-                        tc.amount = balance;
-                        tc.status = "Completed";
-                        tc.transactionType = "load_balance";
-                        tc.walletId = walletId;
-                        tc.addTransaction(tc);
+                        tc.addTransaction(balance,"Completed","load_balance",walletId);
                         System.out.println("******************");
                         System.out.println("Balance: " + wc.getBalanceByUserId(userId));
                         System.out.println("Successfully Loaded Balance");
@@ -94,12 +88,8 @@ public class Dashboard {
                     String contact_no = sc.nextLine();
 
                     if (wc.balanceTransfer(userId, contact_no, transfer_amount)) {
-                        tc.amount = transfer_amount;
-                        tc.status = "Completed";
-                        tc.transactionType = "Balance_transf";
-                        tc.walletId = wa_id;
 
-                        tc.addTransaction(tc);
+                        tc.addTransaction(transfer_amount,"Completed","Balance_transf",wa_id);
 
                         System.out.println("Successfully Transfered balance");
                         break;
@@ -147,14 +137,9 @@ public class Dashboard {
 
                     lt.lottery_id = lottery_id;
                     lt.userId = userId;
-
-                    tc.amount = lottery_price;
-                    tc.status = "Completed";
-                    tc.transactionType = "Buy Lottery Ticket";
-                    tc.walletId = wallet_id;
-
+                    
                     if (lt.buyLotteryTicket(lt)) {
-                        tc.addTransaction(tc);
+                        tc.addTransaction(lottery_price,"Completed","Buy Lottery Ticket",wallet_id);
                         if (wc.deduct_balance(userId, lottery_price)) {
                             System.out.println("Successfully ticket Purchased");
                         } else {
