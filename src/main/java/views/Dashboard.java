@@ -134,9 +134,6 @@ public class Dashboard {
                     }
 
                     Long wallet_id = wc.getWalletIdByUserId(userId);
-
-                    lt.lottery_id = lottery_id;
-                    lt.userId = userId;
                     
                     if (lt.buyLotteryTicket(userId,lottery_id)) {
                         tc.addTransaction(lottery_price,"Completed","Buy Lottery Ticket",wallet_id);

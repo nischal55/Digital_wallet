@@ -128,12 +128,7 @@ public class AdminDashboard {
 
                     sc.nextLine();
 
-                    lc.lotterName = lotteryName;
-                    lc.prize_amount = prize_amount;
-                    lc.drawDate = draw_date;
-                    lc.ticketPrice = ticket_price;
-
-                    if (lc.saveLottery(lc)) {
+                    if (lc.saveLottery(lotteryName,prize_amount,draw_date,ticket_price)) {
                         System.out.println("SuccessFully Lottery Added");
                         break;
                     }

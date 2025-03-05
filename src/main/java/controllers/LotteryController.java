@@ -17,27 +17,22 @@ import models.LotteryTicket;
  * @author nischal
  */
 public class LotteryController {
-    public String lotterName;
-    public double prize_amount;
-    public LocalDate drawDate;
-    public String status;
     public LocalDate createdAt;
-    public double ticketPrice;
     LotteryDAO ld = new LotteryDaoImpl();
     
     public LotteryController(){
         this.createdAt = LocalDate.now();
     }
     
-    public boolean saveLottery(LotteryController lc){
+    public boolean saveLottery(String lotteryName,double prize_amount,LocalDate drawDate,double ticketPrice){
         Lottery lottery = new Lottery();
         boolean status = false;
-        lottery.setLotteryName(lc.lotterName);
-        lottery.setPrizeAmount(lc.prize_amount);
-        lottery.setDrawDate(lc.drawDate);
+        lottery.setLotteryName(lotteryName);
+        lottery.setPrizeAmount(prize_amount);
+        lottery.setDrawDate(drawDate);
         lottery.setStatus("Opened");
         lottery.setCreatedAt(createdAt);
-        lottery.setTicketPrice(lc.ticketPrice);
+        lottery.setTicketPrice(ticketPrice);
         
         if(ld.save(lottery)){
             status= true;
