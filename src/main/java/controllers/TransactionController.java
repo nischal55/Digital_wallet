@@ -4,6 +4,7 @@
  */
 package controllers;
 
+import Service.java.TransactionService;
 import dao.TransactionDAO;
 import dao.WalletDAO;
 import dao.impl.TransactionDaoImpl;
@@ -20,18 +21,13 @@ public class TransactionController {
     TransactionDAO td = new TransactionDaoImpl();
     WalletDAO wd = new WalletDaoImpl();
     
+    TransactionService service = new TransactionService();
+    
     public void addTransaction(double amount,String status, String transactionType,Long walletId){
-        Transaction transc = new Transaction();
-        transc.setTransactionType(transactionType);
-        transc.setAmount(amount);
-        transc.setStatus(status);
-        Wallet wallet = wd.findById(walletId);
-        transc.setWallet(wallet);
-        
-        if(td.save(transc)){
-            System.out.println("Transaction saved Successfully");
+        if(service.addTransaction(amount, status, transactionType, walletId)){
+            System.out.println("Transaction added Successfully");
         }else{
-            System.out.println("Transaction Failed to be added");
+            System.out.println("Failed to add transaction");
         }
     }
     
