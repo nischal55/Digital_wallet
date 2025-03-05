@@ -211,11 +211,8 @@ public class AdminDashboard {
 
                     if (confirmation == 1) {
                         if (wc.loadBalance(winning_prize,winner_user_id)) {
-                            tc.amount = winning_prize;
-                            tc.status="completed";
-                            tc.transactionType = "Wining prize transfer";
-                            tc.walletId = wc.getWalletIdByUserId(winner_user_id);
-                            tc.addTransaction(tc);
+                            Long walletId = wc.getWalletIdByUserId(winner_user_id);
+                            tc.addTransaction(winning_prize,"Completed","Winning Prize Transfer",walletId);
                             lc.changeTicketStatus(lottery_scheme);
                             System.out.println("Transfered Balance to winner");
                             break;

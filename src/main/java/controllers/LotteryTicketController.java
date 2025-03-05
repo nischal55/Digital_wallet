@@ -21,9 +21,6 @@ import models.User;
  * @author nischal
  */
 public class LotteryTicketController {
-    public Long userId;
-    public int ticket_no;
-    public Long lottery_id;
     LotteryTicketDAO ld = new LotteryTicketDaoImpl();
     LotteryDAO lotteryDao = new LotteryDaoImpl();
     UserDAO ud = new UserDaoImpl();
@@ -36,18 +33,18 @@ public class LotteryTicketController {
         this.createdAt = LocalDate.now();
     }
     
-    public boolean buyLotteryTicket(LotteryTicketController lc){
+    public boolean buyLotteryTicket(Long userId, Long lotteryId){
         boolean status = false;
         
         int latest_ticket_no = ld.getLatestLotteryTicket()+1;
         LotteryTicket lt = new LotteryTicket();
         
-        Lottery lottery = lotteryDao.findById(lc.lottery_id);
+        Lottery lottery = lotteryDao.findById(lotteryId);
         lt.setLottery(lottery);
         lt.setTicketNumber(latest_ticket_no);
         lt.setCreatedAt(createdAt);
         
-        User user = ud.findById(lc.userId);
+        User user = ud.findById(userId);
         lt.setUser(user);
         
         if(ld.save(lt)){

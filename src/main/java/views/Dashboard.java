@@ -138,7 +138,7 @@ public class Dashboard {
                     lt.lottery_id = lottery_id;
                     lt.userId = userId;
                     
-                    if (lt.buyLotteryTicket(lt)) {
+                    if (lt.buyLotteryTicket(userId,lottery_id)) {
                         tc.addTransaction(lottery_price,"Completed","Buy Lottery Ticket",wallet_id);
                         if (wc.deduct_balance(userId, lottery_price)) {
                             System.out.println("Successfully ticket Purchased");
