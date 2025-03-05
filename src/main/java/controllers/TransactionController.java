@@ -6,12 +6,9 @@ package controllers;
 
 import Service.java.TransactionService;
 import dao.TransactionDAO;
-import dao.WalletDAO;
 import dao.impl.TransactionDaoImpl;
-import dao.impl.WalletDaoImpl;
 import java.util.List;
 import models.Transaction;
-import models.Wallet;
 /**
  *
  * @author nischal
@@ -19,7 +16,6 @@ import models.Wallet;
 public class TransactionController {
     
     TransactionDAO td = new TransactionDaoImpl();
-    WalletDAO wd = new WalletDaoImpl();
     
     TransactionService service = new TransactionService();
     

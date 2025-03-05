@@ -3,18 +3,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package controllers;
-import dao.LotteryDAO;
-import models.LotteryTicket;
+import Service.java.LotteryTicketService;
 import dao.impl.LotteryTicketDaoImpl;
 import dao.LotteryTicketDAO;
-import dao.UserDAO;
-import dao.impl.LotteryDaoImpl;
-import dao.impl.UserDaoImpl;
 import java.time.LocalDate;
 import java.util.List;
 import models.Lottery;
-import models.User;
-
 
 /**
  *
@@ -22,8 +16,7 @@ import models.User;
  */
 public class LotteryTicketController {
     LotteryTicketDAO ld = new LotteryTicketDaoImpl();
-    LotteryDAO lotteryDao = new LotteryDaoImpl();
-    UserDAO ud = new UserDaoImpl();
+    LotteryTicketService service = new LotteryTicketService();
     
     
     
@@ -34,25 +27,7 @@ public class LotteryTicketController {
     }
     
     public boolean buyLotteryTicket(Long userId, Long lotteryId){
-        boolean status = false;
-        
-        int latest_ticket_no = ld.getLatestLotteryTicket()+1;
-        LotteryTicket lt = new LotteryTicket();
-        
-        Lottery lottery = lotteryDao.findById(lotteryId);
-        lt.setLottery(lottery);
-        lt.setTicketNumber(latest_ticket_no);
-        lt.setCreatedAt(createdAt);
-        
-        User user = ud.findById(userId);
-        lt.setUser(user);
-        
-        if(ld.save(lt)){
-            status = true;
-        }
-        
-        
-        return status;
+        return service.buyLotteryTicket(userId, lotteryId, createdAt);
     }
     
     public List<Object[]> getTicketsByUserId(Long userId){
