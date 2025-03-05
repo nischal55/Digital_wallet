@@ -1,7 +1,6 @@
 views/AdminDashboard.class
 models/User.class
 models/Transaction.class
-views/testConnection.class
 Service/java/WalletService.class
 models/Wallet.class
 dao/impl/UserDaoImpl.class
@@ -19,11 +18,13 @@ dao/impl/LotteryTicketDaoImpl.class
 dao/WalletDAO.class
 dao/impl/BaseDaoImpl.class
 controllers/TransactionController.class
+Service/java/TransactionService.class
 views/Index.class
 models/LotteryTicket.class
 dao/UserDAO.class
 controllers/LotteryController.class
 dao/LotteryTicketDAO.class
 dao/TransactionDAO.class
+Service/java/LotteryTicketService.class
 dao/BaseDAO.class
 dao/impl/WalletDaoImpl.class

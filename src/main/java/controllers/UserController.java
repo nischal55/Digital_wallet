@@ -58,4 +58,19 @@ public class UserController{
         User user = userDAO.findById(userId);
         return user;
     }
+    
+    public boolean updateUser(String contact,String email,String fullName,String username, Long userId ){
+        boolean status = false;
+        User user = getUserById(userId);
+        user.setContact(contact);
+        user.setEmail(email);
+        user.setFullName(fullName);
+        user.setUsername(username);
+        
+        if(userDAO.update(user)){
+            status = true;
+        }
+        
+        return status;
+    }
 }

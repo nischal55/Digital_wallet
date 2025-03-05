@@ -17,11 +17,12 @@
 /home/nischal/Digital_Wallet/digital_wallet/src/main/java/dao/UserDAO.java
 /home/nischal/Digital_Wallet/digital_wallet/src/main/java/dao/WalletDAO.java
 /home/nischal/Digital_Wallet/digital_wallet/src/main/java/dao/LotteryTicketDAO.java
+/home/nischal/Digital_Wallet/digital_wallet/src/main/java/Service/java/TransactionService.java
 /home/nischal/Digital_Wallet/digital_wallet/src/main/java/models/User.java
 /home/nischal/Digital_Wallet/digital_wallet/src/main/java/views/AdminDashboard.java
 /home/nischal/Digital_Wallet/digital_wallet/src/main/java/models/LotteryTicket.java
 /home/nischal/Digital_Wallet/digital_wallet/src/main/java/dao/impl/WalletDaoImpl.java
-/home/nischal/Digital_Wallet/digital_wallet/src/main/java/views/testConnection.java
+/home/nischal/Digital_Wallet/digital_wallet/src/main/java/Service/java/LotteryTicketService.java
 /home/nischal/Digital_Wallet/digital_wallet/src/main/java/controllers/UserController.java
 /home/nischal/Digital_Wallet/digital_wallet/src/main/java/dao/TransactionDAO.java
 /home/nischal/Digital_Wallet/digital_wallet/src/main/java/models/Transaction.java

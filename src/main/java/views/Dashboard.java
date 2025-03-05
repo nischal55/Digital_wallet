@@ -11,6 +11,7 @@ import java.util.Scanner;
 import models.Lottery;
 import controllers.LotteryController;
 import controllers.LotteryTicketController;
+import controllers.UserController;
 import models.Transaction;
 
 
@@ -26,6 +27,7 @@ public class Dashboard {
     TransactionController tc = new TransactionController();
     LotteryController lc = new LotteryController();
     LotteryTicketController lt = new LotteryTicketController();
+    UserController uc = new UserController();
  
 
     void showDashboard() {
@@ -41,7 +43,8 @@ public class Dashboard {
             System.out.println("4. Buy lottery Schemes");
             System.out.println("5. Show Purchased Tickets");
             System.out.println("6. Show Transaction Report");
-            System.out.println("7. Exit");
+            System.out.println("7. Update User Information");
+            System.out.println("8. Exit");
             int option = sc.nextInt();
 
             switch (option) {
@@ -187,6 +190,40 @@ public class Dashboard {
 
                     break;
                 case 7:
+                    //Update User Information
+                    sc.nextLine();
+                    System.out.println("Enter Contact No:");
+                    String contact = sc.nextLine();
+                    System.out.println("Enter your email:");
+                    String email = sc.nextLine();
+                    System.out.println("Enter Full Name:");
+                    String fullName = sc.nextLine();
+                    System.out.println("Enter Username:");
+                    String username = sc.nextLine();
+                    
+                    if(contact.isEmpty()){
+                        System.out.println("Please Enter  contact field is empty");
+                        break;
+                    }
+                    if(email.isEmpty()){
+                        System.out.println("Please Enter  email field is empty");
+                        break;
+                    }
+                    if(fullName.isEmpty()){
+                        System.out.println("Please Enter  full name field is empty");
+                        break;
+                    }
+                    if(username.isEmpty()){
+                        System.out.println("Please Enter  usernmae field is empty");
+                        break;
+                    }
+                    
+                    if(uc.updateUser(contact, email, fullName, username, userId)){
+                        System.out.println("User has been updated Successfully");
+                        break;
+                    }
+                    
+                case 8:
                     System.exit(0);
             }
         }
