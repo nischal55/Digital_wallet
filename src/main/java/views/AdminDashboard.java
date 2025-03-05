@@ -210,9 +210,7 @@ public class AdminDashboard {
                     int confirmation = sc.nextInt();
 
                     if (confirmation == 1) {
-                        wc.balance = winning_prize;
-                        wc.userId = winner_user_id;
-                        if (wc.loadBalance(wc)) {
+                        if (wc.loadBalance(winning_prize,winner_user_id)) {
                             tc.amount = winning_prize;
                             tc.status="completed";
                             tc.transactionType = "Wining prize transfer";

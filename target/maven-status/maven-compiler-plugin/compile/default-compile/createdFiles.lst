@@ -2,6 +2,7 @@ views/AdminDashboard.class
 models/User.class
 models/Transaction.class
 views/testConnection.class
+Service/java/WalletService.class
 models/Wallet.class
 dao/impl/UserDaoImpl.class
 controllers/UserController.class

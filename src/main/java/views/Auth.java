@@ -71,8 +71,7 @@ public class Auth {
         uc.password = password;
         if (uc.register_user(uc)) {
             userId = uc.getUserId(uc);
-            wc.userId = userId;
-            if (wc.createWallet(wc)) {
+            if (wc.createWallet(userId)) {
                 status = true;
             }
 

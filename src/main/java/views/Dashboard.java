@@ -62,10 +62,8 @@ public class Dashboard {
                         System.out.println("******************");
                         break;
                     }
-                    wc.balance = balance;
-                    wc.userId = userId;
 
-                    if (wc.loadBalance(wc)) {
+                    if (wc.loadBalance(balance,userId)) {
                         Long walletId = wc.getWalletIdByUserId(userId);
                         tc.amount = balance;
                         tc.status = "Completed";

@@ -7,6 +7,7 @@
 /home/nischal/Digital_Wallet/digital_wallet/src/main/java/controllers/LotteryTicketController.java
 /home/nischal/Digital_Wallet/digital_wallet/src/main/java/dao/impl/BaseDaoImpl.java
 /home/nischal/Digital_Wallet/digital_wallet/src/main/java/dao/impl/UserDaoImpl.java
+/home/nischal/Digital_Wallet/digital_wallet/src/main/java/Service/java/WalletService.java
 /home/nischal/Digital_Wallet/digital_wallet/src/main/java/controllers/LotteryController.java
 /home/nischal/Digital_Wallet/digital_wallet/src/main/java/dao/LotteryDAO.java
 /home/nischal/Digital_Wallet/digital_wallet/src/main/java/models/Wallet.java

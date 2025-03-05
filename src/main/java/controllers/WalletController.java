@@ -9,17 +9,14 @@ import models.User;
 
 public class WalletController {
 
-    public double balance = 0;
-    public Long userId;
-
     WalletDAO wd = new WalletDaoImpl();
     UserDAO ud = new UserDaoImpl();
 
-    public boolean createWallet(WalletController wc) {
+    public boolean createWallet(Long userId) {
         boolean status = false;
         Wallet wallet = new Wallet();
-        wallet.setBalance(wc.balance);
-        User user = ud.findById(wc.userId);
+        wallet.setBalance(0);
+        User user = ud.findById(userId);
 
         wallet.setUser(user);
 
@@ -35,13 +32,13 @@ public class WalletController {
         return balance;
     }
 
-    public boolean loadBalance(WalletController wc) {
+    public boolean loadBalance(double balance, Long userId) {
 
         boolean status = false;
-        double old_balance = wc.getBalanceByUserId(userId);
+        double old_balance = getBalanceByUserId(userId);
         Wallet wallet = wd.getWalletByUserId(userId);
-        wallet.setBalance(old_balance + wc.balance);
-        User user = ud.findById(wc.userId);
+        wallet.setBalance(old_balance + balance);
+        User user = ud.findById(userId);
 
         wallet.setUser(user);
 
