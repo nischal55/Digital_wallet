@@ -7,10 +7,8 @@ package controllers;
 import dao.LotteryDAO;
 import dao.impl.LotteryDaoImpl;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 import models.Lottery;
-import models.LotteryTicket;
 
 /**
  *

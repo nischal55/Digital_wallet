@@ -1,5 +1,6 @@
 package controllers;
 
+import Service.java.WalletService;
 import dao.UserDAO;
 import models.Wallet;
 import dao.WalletDAO;
@@ -11,6 +12,7 @@ public class WalletController {
 
     WalletDAO wd = new WalletDaoImpl();
     UserDAO ud = new UserDaoImpl();
+    WalletService service = new WalletService();
 
     public boolean createWallet(Long userId) {
         boolean status = false;
@@ -28,25 +30,11 @@ public class WalletController {
     }
 
     public double getBalanceByUserId(Long id) {
-        double balance = wd.getWalletByUserId(id).getBalance();
-        return balance;
+        return service.getBalanceByUserId(id);
     }
 
     public boolean loadBalance(double balance, Long userId) {
-
-        boolean status = false;
-        double old_balance = getBalanceByUserId(userId);
-        Wallet wallet = wd.getWalletByUserId(userId);
-        wallet.setBalance(old_balance + balance);
-        User user = ud.findById(userId);
-
-        wallet.setUser(user);
-
-        if (wd.update(wallet)) {
-            status = true;
-        }
-
-        return status;
+        return service.loadBalance(balance, userId);
     }
 
     public Long getWalletIdByUserId(Long id) {
@@ -54,27 +42,11 @@ public class WalletController {
         return walletId;
     }
 
-    public boolean balanceTransfer(Long userId, String contact, double transfer_amount) {
-        boolean status = false;
-        System.out.println("contact" + contact);
-        System.out.println("Balance:" + transfer_amount);
-        if (wd.transferBalance(userId, contact, transfer_amount)) {
-            status = true;
-        }
-
-        return status;
+    public boolean balanceTransfer(Long userId, String contact, double transferAmount) {
+        return service.balanceTransfer(userId, contact,transferAmount);
     }
 
-    public boolean deduct_balance(Long userId, double deduct_balance) {
-        boolean status = false;
-        Wallet wallet = wd.getWalletByUserId(userId);
-        double balance = wallet.getBalance() - deduct_balance;
-        wallet.setBalance(balance);
-
-        if (wd.update(wallet)) {
-            status = true;
-        }
-
-        return status;
+    public boolean deductBalance(Long userId, double deductBalance) {
+        return service.deductBalance(userId, deductBalance);
     }
 }

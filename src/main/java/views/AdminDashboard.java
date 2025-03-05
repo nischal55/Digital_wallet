@@ -32,7 +32,6 @@ public class AdminDashboard {
 
     void showDashboard() {
         while (true) {
-
             System.out.println("******************");
             System.out.println("Admin Dashboard");
             System.out.println("******************");
@@ -128,7 +127,7 @@ public class AdminDashboard {
 
                     sc.nextLine();
 
-                    if (lc.saveLottery(lotteryName,prize_amount,draw_date,ticket_price)) {
+                    if (lc.saveLottery(lotteryName, prize_amount, draw_date, ticket_price)) {
                         System.out.println("SuccessFully Lottery Added");
                         break;
                     }
@@ -148,9 +147,7 @@ public class AdminDashboard {
                                 lotteryTicket[1],
                                 lotteryTicket[2],
                                 lotteryTicket[0]);
-
                     }
-
                     break;
                 case 6:
                     List<Lottery> lottery_list = lc.getAllLottery();
@@ -163,24 +160,23 @@ public class AdminDashboard {
                     System.out.println("**************************************************************************************************************************");
                     int count = 1;
                     for (Lottery lottery_scheme : lottery_list) {
-                        if(lottery_scheme.getStatus().equalsIgnoreCase("Opened")){
+                        if (lottery_scheme.getStatus().equalsIgnoreCase("Opened")) {
                             System.out.printf("%-10d %-20s %-15s %-15s %-25s %-25s %-25s%n",
-                                count,
-                                lottery_scheme.getLotteryName(),
-                                lottery_scheme.getPrizeAmount(),
-                                lottery_scheme.getDrawDate(),
-                                lottery_scheme.getStatus(),
-                                lottery_scheme.getCreatedAt(),
-                                lottery_scheme.getTicketPrice());
-                        count++;
+                                    count,
+                                    lottery_scheme.getLotteryName(),
+                                    lottery_scheme.getPrizeAmount(),
+                                    lottery_scheme.getDrawDate(),
+                                    lottery_scheme.getStatus(),
+                                    lottery_scheme.getCreatedAt(),
+                                    lottery_scheme.getTicketPrice());
+                            count++;
                         }
-                        
+
                     }
 
                     System.out.println("Enter the Lottery No. you want to generate result for:");
                     int lottery_number = sc.nextInt();
-                    
-                   
+
                     Long lottery_id = lottery_list.get(lottery_number - 1).getId();
 
                     int result = lt.findLotteryResult(lottery_id);
@@ -205,9 +201,9 @@ public class AdminDashboard {
                     int confirmation = sc.nextInt();
 
                     if (confirmation == 1) {
-                        if (wc.loadBalance(winning_prize,winner_user_id)) {
+                        if (wc.loadBalance(winning_prize, winner_user_id)) {
                             Long walletId = wc.getWalletIdByUserId(winner_user_id);
-                            tc.addTransaction(winning_prize,"Completed","Winning Prize Transfer",walletId);
+                            tc.addTransaction(winning_prize, "Completed", "Winning Prize Transfer", walletId);
                             lc.changeTicketStatus(lottery_scheme);
                             System.out.println("Transfered Balance to winner");
                             break;
@@ -215,7 +211,6 @@ public class AdminDashboard {
                     } else {
                         break;
                     }
-
 
                 case 7:
                     System.exit(0);
