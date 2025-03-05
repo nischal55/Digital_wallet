@@ -13,6 +13,7 @@ import controllers.LotteryController;
 import controllers.LotteryTicketController;
 import controllers.UserController;
 import models.Transaction;
+import models.Wallet;
 
 
 /**
@@ -89,6 +90,12 @@ public class Dashboard {
                     sc.nextLine();
                     System.out.println("Enter the contact number you want to transfer balance to:");
                     String contact_no = sc.nextLine();
+                    
+                    if(!wc.getWalletByContact(contact_no)){
+                        System.out.println("Invalid Contact No");
+                        break;
+                    }
+                    
 
                     if (wc.balanceTransfer(userId, contact_no, transfer_amount)) {
 

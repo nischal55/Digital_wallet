@@ -12,7 +12,7 @@ public class WalletController {
 
     WalletDAO wd = new WalletDaoImpl();
     UserDAO ud = new UserDaoImpl();
-    WalletService service = new WalletService(wd,ud);
+    WalletService service = new WalletService(wd, ud);
 
     public boolean createWallet(Long userId) {
         boolean status = false;
@@ -43,10 +43,28 @@ public class WalletController {
     }
 
     public boolean balanceTransfer(Long userId, String contact, double transferAmount) {
-        return service.balanceTransfer(userId, contact,transferAmount);
+        return service.balanceTransfer(userId, contact, transferAmount);
     }
 
     public boolean deductBalance(Long userId, double deductBalance) {
         return service.deductBalance(userId, deductBalance);
+    }
+
+    public boolean getWalletByContact(String contact) {
+        boolean status = false;
+
+        try {
+
+            Wallet wallet = wd.getWalletByContact(contact);
+
+            if (wallet != null && wallet.getId() > 0) {
+                status = true;
+            }
+
+        }catch(Exception e){
+            status = false;
+        }
+
+        return status;
     }
 }

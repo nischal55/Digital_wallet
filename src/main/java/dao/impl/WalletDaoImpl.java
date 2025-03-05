@@ -21,7 +21,7 @@ public class WalletDaoImpl extends BaseDaoImpl<Wallet> implements WalletDAO {
     @Override
     public Wallet getWalletByUserId(Long id) {
         Wallet wallet = null;
-       
+
         try {
             TypedQuery<Wallet> query = em.createQuery("SELECT u FROM Wallet u WHERE u.user.id = :userId", Wallet.class);
             query.setParameter("userId", id);
@@ -33,15 +33,21 @@ public class WalletDaoImpl extends BaseDaoImpl<Wallet> implements WalletDAO {
             return wallet;
         }
     }
-    
+
     @Override
-    public Wallet getWalletByContact(String contact){
-        String jpql = "SELECT w FROM Wallet w JOIN w.user u WHERE u.contact = :contact";
-        TypedQuery<Wallet> query = em.createQuery(jpql, Wallet.class);
-        query.setParameter("contact", contact);
-        Wallet wallet_receiver = query.getSingleResult();
-        
-        return wallet_receiver;
+    public Wallet getWalletByContact(String contact) {
+        Wallet wallet_receiver = null;
+        try {
+            String jpql = "SELECT w FROM Wallet w JOIN w.user u WHERE u.contact = :contact";
+            TypedQuery<Wallet> query = em.createQuery(jpql, Wallet.class);
+            query.setParameter("contact", contact);
+            wallet_receiver = query.getSingleResult();
+
+            return wallet_receiver;
+        }catch(Exception e){
+            return wallet_receiver;
+        }
+
     }
 
 }
