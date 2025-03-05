@@ -13,9 +13,6 @@ import controllers.LotteryController;
 import controllers.LotteryTicketController;
 import controllers.UserController;
 import models.Transaction;
-import models.Wallet;
-
-
 /**
  *
  * @author nischal

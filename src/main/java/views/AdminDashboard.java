@@ -141,7 +141,7 @@ public class AdminDashboard {
                         break;
                     }
 
-                    if (ticket_price == 0.0) {
+                    if (ticket_price == 0.0 || ticket_price<0.0) {
                         System.out.println("Please Enter the ticket price");
                         break;
                     }
