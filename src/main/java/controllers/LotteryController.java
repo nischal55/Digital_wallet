@@ -53,4 +53,21 @@ public class LotteryController {
             System.out.println("Ticket status changed to closed");
         }
     }
+     
+    public boolean updateLottery(double prizeAmount,double ticketPrice,String lottery_name,String status,Long lotteryId, LocalDate drawDate){
+        boolean update_status = false;
+        Lottery lottery = ld.findById(lotteryId);
+        lottery.setPrizeAmount(prizeAmount);
+        lottery.setTicketPrice(ticketPrice);
+        lottery.setLotteryName(lottery_name);
+        lottery.setStatus(status);
+        lottery.setDrawDate(drawDate);
+        
+        if(ld.update(lottery)){
+            update_status = true;
+        }
+        
+        return update_status;
+        
+    }
 }

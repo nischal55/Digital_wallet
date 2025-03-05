@@ -42,7 +42,8 @@ public class AdminDashboard {
             System.out.println("4. Add lottery Schemes");
             System.out.println("5. Show lottery Applicants");
             System.out.println("6. Generate lottery Result");
-            System.out.println("7. Logout");
+            System.out.println("7. Update Lottery Scheme");
+            System.out.println("8. Logout");
             int option = sc.nextInt();
             switch (option) {
                 case 1:
@@ -126,6 +127,24 @@ public class AdminDashboard {
                     double ticket_price = sc.nextDouble();
 
                     sc.nextLine();
+
+                    if (lotteryName.isEmpty()) {
+                        System.out.println("Please Enter Lottery Name");
+                        break;
+                    }
+                    if (inputDate.isEmpty()) {
+                        System.out.println("Please Enter the Draw Date");
+                        break;
+                    }
+                    if (draw_date.isBefore(LocalDate.now())) {
+                        System.out.println("Donot Enter past date and today's Date");
+                        break;
+                    }
+
+                    if (ticket_price == 0.0) {
+                        System.out.println("Please Enter the ticket price");
+                        break;
+                    }
 
                     if (lc.saveLottery(lotteryName, prize_amount, draw_date, ticket_price)) {
                         System.out.println("SuccessFully Lottery Added");
@@ -213,6 +232,93 @@ public class AdminDashboard {
                     }
 
                 case 7:
+                    List<Lottery> lotteryList = lc.getAllLottery();
+                    System.out.println("*********************");
+                    System.out.println("Choose Lottery Scheme");
+                    System.out.println("*********************");
+
+                    System.out.println("**************************************************************************************************************************");
+                    System.out.printf("%-10s %-20s %-15s %-15s %-25s %-25s %-25s%n", "S.N", "Lottery Title", "Prize Amount", "Draw Date", "Status", "CreatedAt", "Ticket Price");
+                    System.out.println("**************************************************************************************************************************");
+                    int countLottery = 1;
+                    for (Lottery lotteryScheme : lotteryList) {
+                        if (lotteryScheme.getStatus().equalsIgnoreCase("Opened")) {
+                            System.out.printf("%-10d %-20s %-15s %-15s %-25s %-25s %-25s%n",
+                                    countLottery,
+                                    lotteryScheme.getLotteryName(),
+                                    lotteryScheme.getPrizeAmount(),
+                                    lotteryScheme.getDrawDate(),
+                                    lotteryScheme.getStatus(),
+                                    lotteryScheme.getCreatedAt(),
+                                    lotteryScheme.getTicketPrice());
+                            countLottery++;
+                        }
+
+                    }
+
+                    System.out.println("Enter the Lottery No. you want to generate result for:");
+                    int lotteryNumber = sc.nextInt();
+                    Long lotteryId = lotteryList.get(lotteryNumber - 1).getId();
+                    
+                    System.out.println("LotteryId:" + lotteryId);
+
+                    System.out.println("Enter Updated prize amount:");
+                    double prizeAmount = sc.nextDouble();
+                    sc.nextLine();
+
+                    System.out.println("Enter Updated ticket price:");
+                    double ticketPrice = sc.nextDouble();
+                    sc.nextLine();
+
+                    System.out.println("Enter Updated lottery Name");
+                    String updateLotteryName = sc.nextLine();
+
+                    System.out.println("Enter Updated Status");
+                    String updatedStatus = sc.nextLine();
+
+                    System.out.println("Enter the draw date Format YYYY-MM-DD");
+                    String updatedDate = sc.nextLine().trim();
+                    LocalDate drawDate = LocalDate.parse(updatedDate);
+
+                    if (prizeAmount == 0.0) {
+                        System.out.println("Please Enter the prize amount");
+                        break;
+                    }
+
+                    if (ticketPrice == 0.0) {
+                        System.out.println("Please Enter the ticket amount");
+                        break;
+                    }
+
+                    if (updateLotteryName.isEmpty()) {
+                        System.out.println("Please Enter the lottery Name");
+                        break;
+                    }
+
+                    if (updatedStatus.isEmpty()) {
+                        System.out.println("Please Enter the status");
+                        break;
+                    }
+
+                    if (updatedDate.isEmpty()) {
+                        System.out.println("Please Enter the draw date");
+                        break;
+                    }
+
+                    if (drawDate.isBefore(LocalDate.now())) {
+                        System.out.println("Donot Enter past date or today's Date");
+                        break;
+                    }
+
+                    if (lc.updateLottery(prizeAmount, ticketPrice, updateLotteryName, updatedStatus, lotteryId, drawDate)) {
+                        System.out.println("Ticket updated Successfully");
+                        break;
+                    } else {
+                        System.out.println("Failed to update the scheme");
+                        break;
+                    }
+
+                case 8:
                     System.exit(0);
                     break;
             }
