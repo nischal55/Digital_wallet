@@ -26,12 +26,9 @@ public class Auth {
             status = false;
         }
 
-        uc.username = username;
-        uc.password = password;
-
-        if (uc.login_user(uc)) {
-            userId = uc.getUserId(uc);
-            userType = uc.userType(uc);
+        if (uc.login_user(username,password)) {
+            userId = uc.getUserId(username);
+            userType = uc.userType(username);
             if (userType.equalsIgnoreCase("customer")) {
                 Dashboard db = new Dashboard();
                 db.userId = userId;
@@ -55,7 +52,7 @@ public class Auth {
         System.out.println("Enter email:");
         String email = sc.nextLine();
         System.out.println("Enter full name:");
-        String full_name = sc.nextLine();
+        String fullName = sc.nextLine();
         System.out.println("Enter Contact Number:");
         String contact = sc.nextLine();
         String userType = "customer";
@@ -63,14 +60,8 @@ public class Auth {
         String password = sc.nextLine();
         boolean status = false;
 
-        uc.username = username;
-        uc.email = email;
-        uc.contact = contact;
-        uc.fullName = full_name;
-        uc.userType = userType;
-        uc.password = password;
-        if (uc.register_user(uc)) {
-            userId = uc.getUserId(uc);
+        if (uc.register_user(username,email,contact,fullName,userType,password)) {
+            userId = uc.getUserId(username);
             if (wc.createWallet(userId)) {
                 status = true;
             }

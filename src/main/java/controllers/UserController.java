@@ -10,22 +10,16 @@ import models.User;
  * @author nischal
  */
 public class UserController{
-    public String email;
-    public String contact;
-    public String fullName;
-    public String userType;
-    public String username;
-    public String password;
     private static UserDAO userDAO = new UserDaoImpl();
     
-    public boolean register_user(UserController uc){
+    public boolean register_user(String username,String email,String contact, String fullName,String userType,String password){
         User user = new User();
-        user.setUsername(uc.username);
-        user.setEmail(uc.email);
-        user.setContact(uc.contact);
-        user.setFullName(uc.fullName);
-        user.setUserType(uc.userType);
-        user.setPassword(uc.password);
+        user.setUsername(username);
+        user.setEmail(email);
+        user.setContact(contact);
+        user.setFullName(fullName);
+        user.setUserType(userType);
+        user.setPassword(password);
         boolean status = false;
         
         //saving user through DAO
@@ -36,22 +30,22 @@ public class UserController{
         return status;
     }
     
-    public boolean login_user(UserController uc){
+    public boolean login_user(String username, String password){
        boolean status = false;
-       if(userDAO.authenticateUser(uc.username, uc.password)){
+       if(userDAO.authenticateUser(username, password)){
            status = true;
            
        }
        return status;
     }
     
-    public String userType(UserController uc){
-        String userType = userDAO.getUserType(uc.username);
+    public String userType(String username){
+        String userType = userDAO.getUserType(username);
         return userType;
     }
     
-    public Long getUserId(UserController uc){
-        Long userId = userDAO.getUserId(uc.username);
+    public Long getUserId(String username){
+        Long userId = userDAO.getUserId(username);
         return userId;
     }
     
