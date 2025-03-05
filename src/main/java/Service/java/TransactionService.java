@@ -6,8 +6,6 @@ package Service.java;
 
 import dao.TransactionDAO;
 import dao.WalletDAO;
-import dao.impl.TransactionDaoImpl;
-import dao.impl.WalletDaoImpl;
 import models.Transaction;
 import models.Wallet;
 
@@ -16,8 +14,14 @@ import models.Wallet;
  * @author nischal
  */
 public class TransactionService {
-    TransactionDAO td = new TransactionDaoImpl();
-    WalletDAO wd = new WalletDaoImpl();
+
+    private TransactionDAO td;
+    private WalletDAO wd;
+    
+    public TransactionService(WalletDAO wd, TransactionDAO td){
+        this.td=td;
+        this.wd=wd;
+    }
     
     public boolean addTransaction(double amount,String status, String transactionType,Long walletId){
         Transaction transc = new Transaction();

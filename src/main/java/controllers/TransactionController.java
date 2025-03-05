@@ -6,7 +6,9 @@ package controllers;
 
 import Service.java.TransactionService;
 import dao.TransactionDAO;
+import dao.WalletDAO;
 import dao.impl.TransactionDaoImpl;
+import dao.impl.WalletDaoImpl;
 import java.util.List;
 import models.Transaction;
 /**
@@ -16,8 +18,9 @@ import models.Transaction;
 public class TransactionController {
     
     TransactionDAO td = new TransactionDaoImpl();
+    WalletDAO wd = new WalletDaoImpl();
     
-    TransactionService service = new TransactionService();
+    TransactionService service = new TransactionService(wd,td);
     
     public void addTransaction(double amount,String status, String transactionType,Long walletId){
         if(service.addTransaction(amount, status, transactionType, walletId)){
